@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class CategorySeeder extends Seeder
+class PaymentTypesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,10 +11,10 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $categoriesList = ['Fast food', 'Sea food', 'Pizzas', 'Hamburger', 'Kebab'];
+        $categoriesList = ['Credit Card', 'On Delivery', 'Paypal'];
 
         foreach ($categoriesList as $item) {
-            DB::table('categories')->insert(['name' => $item]);
+            DB::table('payment_types')->insert(['name' => $item]);
         }
     }
 }

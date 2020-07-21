@@ -17,16 +17,16 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->integer('phone_number');
-            $table->foreignId('payment_id');
+            $table->integer('phone_number')->nullable();
+            $table->foreignId('payment_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
 
             $table->foreign('payment_id')
-                ->references('payment_types')
-                ->on('id');
+                ->references('id')
+                ->on('payment_types');
         });
     }
 

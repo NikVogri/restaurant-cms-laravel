@@ -2,7 +2,7 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="{{ route('dashboard.index') }}">Dashboard</a> / All orders
+            <a href="{{ route('dashboard.index') }}">Dashboard</a> / Completed Orders
         </li>
     </ol>
     <!-- DataTables Example -->

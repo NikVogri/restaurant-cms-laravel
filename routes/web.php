@@ -13,15 +13,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', 'WelcomeController@index');
 Route::group(['middleware' => ['auth']], function () {
+
+    // Auth
+
     // Dashboard
     Route::get('/cms', 'DashboardController@index')->name('dashboard.index');
-    // Order
+
+    // Orders
     Route::get('/cms/orders', 'OrdersController@index')->name('orders.index');
+    Route::get('/cms/orders/{order}/show', 'OrdersController@show')->name('orders.show');
+    Route::get('/orders/create-new-order', 'OrdersController@store')->name('orders.create-new-order');
+
+    Route::put('/cms/orders/{order}/complete', 'OrdersController@complete')->name('orders.complete');
+    Route::put('/cms/orders/{order}/undo-complete', 'OrdersController@undoComplete')->name('orders.undo-complete');
+
+    // Completed
+    Route::get('/cms/orders/new', 'OrdersController@new')->name('orders.new');
+    Route::get('/cms/orders/completed', 'OrdersController@completed')->name('orders.completed');
 
     // Categories
     Route::get('/cms/categories', 'CategoriesController@index')->name('categories.index');
@@ -47,8 +57,15 @@ Route::group(['middleware' => ['auth']], function () {
     // vvvv ban users vvv
     Route::delete('/cms/users/{item}/destroy', 'UsersController@destroy')->name('users.destroy');
 
+
     // Payments
     Route::get('/cms/payments', 'PaymentsController@index')->name('payments.index');
+
+
+
+    // Front end
+    Route::get('/cart', 'CartController@index')->name('cart.index');
+    Route::post('/cart/{item}/store', 'CartController@store')->name('cart.store');
 });
 
 Auth::routes();

@@ -22,8 +22,8 @@
             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                 <h6 class="dropdown-header">Orders:</h6>
                 <a class="dropdown-item" href="{{ route('orders.index') }}"><i class="fas fa-table"></i> All Orders</a>
-                <a class="dropdown-item" href="{{ route('orders.index') }}"><i class="fas fa-rss"></i> New Orders</a>
-                <a class="dropdown-item" href="{{ route('orders.index') }}"><i class="fas fa-check"></i> Completed
+                <a class="dropdown-item" href="{{ route('orders.new') }}"><i class="fas fa-rss"></i> New Orders</a>
+                <a class="dropdown-item" href="{{ route('orders.completed') }}"><i class="fas fa-check"></i> Completed
                     Orders</a>
                 <div class="dropdown-divider"></div>
                 <h6 class="dropdown-header">Other:</h6>
