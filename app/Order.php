@@ -3,13 +3,14 @@
 namespace App;
 
 use App\User;
+use App\Payment;
 use App\OrderItem;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
     //
-    protected $fillable = ['customer_id', 'price', 'completed'];
+    protected $fillable = ['customer_id', 'price', 'completed', 'paymentType_id'];
 
     public function customer()
     {
@@ -26,5 +27,9 @@ class Order extends Model
         $this->update([
             'completed' => $completed
         ]);
+    }
+    public function paymentType()
+    {
+        return $this->belongsTo(Payment::class, 'paymentType_id');
     }
 }

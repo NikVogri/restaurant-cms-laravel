@@ -29,10 +29,15 @@
                         <tr>
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
-                            <td>Credit Card</td>
+                            <td>{{ isset($user->paymentType) ?  $user->paymentType->payment->name  : 'Not Set' }}
+                            </td>
                             <td>{{ $user->created_at }}</td>
-                            <td>128</td>
-                            <td>Admin <a href="{{ route('users.edit', $user->id) }}">Edit</a>
+                            <td>{{ $user->orders->count() }}</td>
+                            <td>
+                                @foreach ($user->roles as $role)
+                                <span>{{ ucwords($role->name) }}</span>
+                                @endforeach
+                                <a href="{{ route('users.edit', $user->id) }}">Edit</a>
                             </td>
                         </tr>
                         @endforeach

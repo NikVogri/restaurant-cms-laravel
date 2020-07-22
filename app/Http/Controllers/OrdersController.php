@@ -10,6 +10,13 @@ use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware(['role:admin|staff'])->except('store');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -81,10 +88,12 @@ class OrdersController extends Controller
         $order =  Order::create([
             'customer_id' => auth()->user()->id,
             'price' => $totalPrice,
-            'completed' => false
+            'completed' => false,
+            'paymentType_id' => isset(auth()->user()->paymentType->payment->id) ? auth()->user()->paymentType->payment->id : 1
         ]);
 
         // 3) Create order items and attach them to order
+
         foreach ($orderItems as $orderItem) {
             $item = Item::where('id', $orderItem)->first();
             OrderItem::create([

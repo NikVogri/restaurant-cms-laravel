@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class PaymentsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['role:admin']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +19,9 @@ class PaymentsController extends Controller
      */
     public function index()
     {
-        return view('payments.index');
+        return view('payments.index', [
+            'payments' => Payment::get()
+        ]);
     }
 
     /**
@@ -24,7 +31,7 @@ class PaymentsController extends Controller
      */
     public function create()
     {
-        //
+        return view('payments.create');
     }
 
     /**
@@ -33,9 +40,14 @@ class PaymentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $attributes = request()->validate([
+            'name' => ['required', 'max:255', 'string']
+        ]);
+
+        Payment::create($attributes);
+        return redirect(route('payments.index'))->with('message', 'Payment Type Created');
     }
 
     /**
@@ -57,7 +69,9 @@ class PaymentsController extends Controller
      */
     public function edit(Payment $payment)
     {
-        //
+        return view('payments.edit', [
+            'payment' => $payment
+        ]);
     }
 
     /**
@@ -67,9 +81,14 @@ class PaymentsController extends Controller
      * @param  \App\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Payment $payment)
     {
-        //
+        $attributes = request()->validate([
+            'name' => ['required', 'max:255', 'string']
+        ]);
+
+        $payment->update($attributes);
+        return redirect(route('payments.index'))->with('message', 'Payment Type Updated');
     }
 
     /**
@@ -80,6 +99,8 @@ class PaymentsController extends Controller
      */
     public function destroy(Payment $payment)
     {
-        //
+        $payment->delete();
+
+        return redirect(route('payments.index'))->with('message', 'Payment deleted');
     }
 }

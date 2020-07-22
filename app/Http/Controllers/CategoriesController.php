@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin|staff']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -95,6 +99,7 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect(route('categories.index'))->with('message', 'Category deleted');
     }
 }

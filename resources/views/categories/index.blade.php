@@ -46,6 +46,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <span class="small float-right text-danger">*Deleting a category will also delete any
+                    item in
+                    it.</span>
             </div>
         </div>
     </div>

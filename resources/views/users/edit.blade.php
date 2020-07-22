@@ -14,20 +14,24 @@
             Edit User
         </div>
         <div class="card-body">
+            <div class="d-flex align-items-center">
+                <h4>Current Roles:</h4>
+                @forelse ($user->roles as $role)
+                <span class="ml-2 bg-danger text-light rounded-top rounded-bottom p-1">{{ $role->name }}</span>
+                @empty
+                <span class="ml-2">No roles assigned</span>
+                @endforelse
+            </div>
             <form action="{{ route('users.update', $user->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                {{-- <h4>Current Role: {{ $user->role }}</h4> --}}
                 <div class="form-group">
                     <div class="form-group">
                         <label for="roles">Role</label>
-                        <select id="roles" class="form-control" name="role_id">
-                            {{-- @foreach ($roles as $role) --}}
-                            <option value="1">test</option>
-                            <option value="2">test</option>
-                            <option value="3">test</option>
-                            <option value="4">test</option>
-                            {{-- @endforeach --}}
+                        <select id="roles" class="form-control" name="role">
+                            @foreach ($roles as $role)
+                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     @error('name')
@@ -35,7 +39,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary">Update User</button>
                 </div>
             </form>
         </div>

@@ -16,8 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'WelcomeController@index');
 Route::group(['middleware' => ['auth']], function () {
 
-    // Auth
-
     // Dashboard
     Route::get('/cms', 'DashboardController@index')->name('dashboard.index');
 
@@ -25,7 +23,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/cms/orders', 'OrdersController@index')->name('orders.index');
     Route::get('/cms/orders/{order}/show', 'OrdersController@show')->name('orders.show');
     Route::get('/orders/create-new-order', 'OrdersController@store')->name('orders.create-new-order');
-
     Route::put('/cms/orders/{order}/complete', 'OrdersController@complete')->name('orders.complete');
     Route::put('/cms/orders/{order}/undo-complete', 'OrdersController@undoComplete')->name('orders.undo-complete');
 
@@ -38,8 +35,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/cms/categories/create', 'CategoriesController@create')->name('categories.create');
     Route::post('cms/categories/store', 'CategoriesController@store')->name('categories.store');
     Route::get('/cms/categories/{category}/edit', 'CategoriesController@edit')->name('categories.edit');
-    Route::put('/cms/items/{category}/update', 'CategoriesController@update')->name('categories.update');
-    Route::delete('/cms/items/{category}/destroy', 'CategoriesController@destroy')->name('categories.destroy');
+    Route::put('/cms/categories/{category}/update', 'CategoriesController@update')->name('categories.update');
+    Route::delete('/cms/categories/{category}/destroy', 'CategoriesController@destroy')->name('categories.destroy');
 
     // Items
     Route::get('/cms/items', 'ItemsController@index')->name('items.index');
@@ -60,12 +57,19 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Payments
     Route::get('/cms/payments', 'PaymentsController@index')->name('payments.index');
-
+    Route::get('/cms/payments/create', 'PaymentsController@create')->name('payments.create');
+    Route::post('/cms/payments/store', 'PaymentsController@store')->name('payments.store');
+    Route::get('/cms/payments/{payment}/edit', 'PaymentsController@edit')->name('payments.edit');
+    Route::put('/cms/payments/{payment}/update', 'PaymentsController@update')->name('payments.update');
+    Route::delete('/cms/payments/{payment}/destroy', 'PaymentsController@destroy')->name('payments.destroy');
 
 
     // Front end
     Route::get('/cart', 'CartController@index')->name('cart.index');
     Route::post('/cart/{item}/store', 'CartController@store')->name('cart.store');
 });
+
+
+
 
 Auth::routes();

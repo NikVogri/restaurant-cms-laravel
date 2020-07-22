@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use Spatie\Permission\Models\Role;
+
 use Illuminate\Http\Request;
 use App\User;
 
 class UsersController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['role:admin']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -40,7 +47,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', ['user' => $user]);
+        return view('users.edit', ['user' => $user, 'roles' => Role::all()]);
     }
 
     /**
@@ -52,12 +59,8 @@ class UsersController extends Controller
      */
     public function update(User $user)
     {
-        $attributes = request()->validate([
-            'role_id' => ['required', 'int']
-        ]);
-
-        $user->update($attributes);
-
+        $role = request('role');
+        $user->syncRoles([$role]);
         return redirect(route('users.index'))->with('message', 'User role updated');
     }
 

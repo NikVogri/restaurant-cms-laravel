@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 use App\Category;
 use App\Item;
 use Illuminate\Http\Request;
@@ -9,6 +12,10 @@ use Illuminate\Support\Facades\Storage;
 
 class ItemsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin|staff']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +49,7 @@ class ItemsController extends Controller
     public function store()
     {
 
-        // ddd(request());
+
         $attributes = request()->validate([
             'name' => ['required'],
             'image' => ['file', 'required'],
