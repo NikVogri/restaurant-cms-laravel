@@ -24,7 +24,7 @@
                     <div class="card-body-icon">
                         <i class="fas fa-fw fa-comments"></i>
                     </div>
-                    <div class="mr-5">{{ $orderCount }} new orders</div>
+                    <div class="mr-5">{{ $orderCount }} Total Orders</div>
                 </div>
                 <a class="card-footer text-white clearfix small z-1" href="{{ route('orders.index') }}">
                     <span class="float-left">View All Orders</span>

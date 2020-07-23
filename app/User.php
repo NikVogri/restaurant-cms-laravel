@@ -4,6 +4,7 @@ namespace App;
 
 use App\Order;
 use App\UserPaymentType;
+use App\UserMessage;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
@@ -49,5 +50,20 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class, 'customer_id');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(UserMessage::class, 'receive_user_id');
+    }
+
+    public function sendMessage($messageId)
+    {
+
+
+        UserMessage::create([
+            'receive_user_id' => $this->id,
+            'message_id' => $messageId,
+        ]);
     }
 }

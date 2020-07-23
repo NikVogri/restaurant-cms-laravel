@@ -67,6 +67,19 @@ Route::group(['middleware' => ['auth']], function () {
     // Front end
     Route::get('/cart', 'CartController@index')->name('cart.index');
     Route::post('/cart/{item}/store', 'CartController@store')->name('cart.store');
+
+    // Messages
+    Route::get('/cms/messages', 'MessagesController@index')->name('messages.index');
+    Route::get('/cms/messages/create', 'MessagesController@create')->name('messages.create');
+    Route::post('/cms/messages/store', 'MessagesController@store')->name('messages.store');
+    Route::get('/cms/messages/{message}/show', 'MessagesController@show')->name('messages.show');
+    Route::put('/cms/messages/{message}/update', 'MessagesController@update')->name('messages.update');
+
+    // Alerts
+    Route::get('/cms/alerts/all', 'AlertsController@index')->name('alerts.index');
+    Route::get('/cms/alerts/completed', 'AlertsController@completed')->name('alerts.completed');
+    Route::get('/cms/alerts/active', 'AlertsController@active')->name('alerts.active');
+    Route::put('/cms/alerts/{alert}/update', 'AlertsController@update')->name('alerts.update');
 });
 
 

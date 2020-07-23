@@ -25,9 +25,11 @@
                 <a class="dropdown-item" href="{{ route('orders.new') }}"><i class="fas fa-rss"></i> New Orders</a>
                 <a class="dropdown-item" href="{{ route('orders.completed') }}"><i class="fas fa-check"></i> Completed
                     Orders</a>
+                @role('admin')
                 <div class="dropdown-divider"></div>
-                <h6 class="dropdown-header">Other:</h6>
+                <h6 class="dropdown-header">Admin Area:</h6>
                 <a class="dropdown-item" href="{{ route('payments.index') }}">Edit Payments</a>
+                @endrole
             </div>
         </li>
 
@@ -42,10 +44,12 @@
                 <i class="fas fa-utensils"></i>
                 <span>Items</span></a>
         </li>
+        @role('admin')
         <li class="nav-item">
             <a class="nav-link" href="{{ route('users.index') }}">
                 <i class="fas fa-user"></i>
                 <span>Users</span>
             </a>
         </li>
+        @endrole
     </ul>

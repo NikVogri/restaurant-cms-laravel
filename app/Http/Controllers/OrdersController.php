@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Order;
 use App\OrderItem;
 use App\Cart;
+use App\Alert;
 use App\Item;
 use Illuminate\Http\Request;
 
@@ -106,6 +107,13 @@ class OrdersController extends Controller
 
         // 4) Clear cart
         Cart::where('user_id', auth()->user()->id)->delete();
+
+        // 5) Send an alert to cms
+        Alert::create([
+            'alert_type' => 'order',
+            'order' => $order->id,
+        ]);
+
 
         return redirect('/')->with('message', 'Your order has been sent');
     }
