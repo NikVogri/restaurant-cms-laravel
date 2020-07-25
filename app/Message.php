@@ -2,9 +2,22 @@
 
 namespace App;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
-    protected $fillable = ['from_user_id', 'title', 'body'];
+    //
+
+    protected $fillable = ['title', 'body', 'author_id'];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
 }

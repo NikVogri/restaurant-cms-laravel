@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\PaymentType;
 use Spatie\Permission\Models\Role;
-
+use Auth;
 use Illuminate\Http\Request;
 use App\User;
 
@@ -12,7 +13,7 @@ class UsersController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['role:admin']);
+        $this->middleware(['role:admin'])->except(['profile', 'updateProfile']);
     }
     /**
      * Display a listing of the resource.
@@ -23,6 +24,14 @@ class UsersController extends Controller
     {
         return view('users.index', [
             'users' => User::orderBy('created_at')->get()
+        ]);
+    }
+
+    public function profile()
+    {
+        return view('users.profile', [
+            'user' => Auth::user(),
+            'paymentTypes' => PaymentType::get()
         ]);
     }
 
@@ -57,11 +66,26 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(User $user)
+    public function updateRole(User $user)
     {
         $role = request('role');
         $user->syncRoles([$role]);
         return redirect(route('users.index'))->with('message', 'User role updated');
+    }
+
+    public function updateProfile()
+    {
+        $attributes = request()->validate([
+            'name' => ['string', 'required', 'max:255'],
+            'email' => ['email', 'required'],
+            'phone_number' => ['nullable', 'string', 'max:9'],
+        ]);
+
+        $user = Auth::user();
+        $user->updatePayment(request('paymentType_id'));
+        $user->update($attributes);
+
+        return back()->with('message', 'User role updated');
     }
 
     /**

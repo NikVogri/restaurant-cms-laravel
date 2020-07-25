@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCompletedToOrdersTable extends Migration
+class CreatePaymentTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AddCompletedToOrdersTable extends Migration
      */
     public function up()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            $table->boolean('completed')->default(false);
+        Schema::create('payment_types', function (Blueprint $table) {
+            $table->id();
+            $table->text('name');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +27,6 @@ class AddCompletedToOrdersTable extends Migration
      */
     public function down()
     {
-        Schema::table('orders', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('payment_types');
     }
 }

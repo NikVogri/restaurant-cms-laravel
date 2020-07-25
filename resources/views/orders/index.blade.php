@@ -22,7 +22,7 @@
                             <th>Payment Type</th>
                             <th>Total Price</th>
                             <th>Created at</th>
-                            <th>View Full Order</th>
+                            <th>Order Details</th>
                             <th>Mark as Completed</th>
                         </tr>
                     </thead>
@@ -33,7 +33,7 @@
                             <td>{{ $order->completed === 0 ? 'No' : 'Yes' }}</td>
                             <td>{{ $order->customer->name }}</td>
                             <td>{{ $order->paymentType->name }}</td>
-                            <td>{{ $order->price }}€</td>
+                            <td>{{ $order->totalPrice() }}€</td>
                             <td>{{ $order->created_at->diffForHumans() }}</td>
                             <td><a href="{{ route('orders.show', $order->id) }}">View</a></td>
                             @if($order->completed === 0)

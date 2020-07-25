@@ -14,7 +14,7 @@
                 <i class="fas fa-user-circle fa-fw"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">Settings</a>
+                <a class="dropdown-item" href="{{ route('users.profile') }}">Settings</a>
                 <a class="dropdown-item" href="#">Activity Log</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
@@ -30,14 +30,10 @@
         </li>
 
         <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown">
+            <a class="nav-link dropdown-toggle" href="{{ route('alerts.index') }}">
                 <i class="fas fa-bell fa-fw"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="alertsDropdown">
-                <a class="dropdown-item" href="{{ route('alerts.index') }}">All Alerts</a>
-                <a class="dropdown-item" href="{{ route('alerts.active') }}">Active Alerts</a>
-                <a class="dropdown-item" href="{{ route('alerts.completed') }}">Completed Alerts</a>
-            </div>
+
         </li>
 
     </ul>

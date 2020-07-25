@@ -24,19 +24,8 @@ class Item extends Model
         return 'storage/' . $this->image;
     }
 
-    public function order_items()
+    public function order_item()
     {
-        return $this->belongsToMany(OrderItem::class);
-    }
-
-    public function save_to_cart()
-    {
-        $user_id = auth()->user()->id;
-
-        if (session($user_id)) {
-            session($user_id)[] = $this;
-        } else {
-            session([$user_id => [$this]]);
-        }
+        return $this->hasOne(OrderItem::class);
     }
 }

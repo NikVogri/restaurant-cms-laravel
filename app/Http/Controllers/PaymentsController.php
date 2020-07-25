@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Payment;
+use App\PaymentType;
 use Illuminate\Http\Request;
 
 class PaymentsController extends Controller
@@ -20,7 +20,7 @@ class PaymentsController extends Controller
     public function index()
     {
         return view('payments.index', [
-            'payments' => Payment::get()
+            'payments' => PaymentType::get()
         ]);
     }
 
@@ -46,7 +46,7 @@ class PaymentsController extends Controller
             'name' => ['required', 'max:255', 'string']
         ]);
 
-        Payment::create($attributes);
+        PaymentType::create($attributes);
         return redirect(route('payments.index'))->with('message', 'Payment Type Created');
     }
 
@@ -56,7 +56,7 @@ class PaymentsController extends Controller
      * @param  \App\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function show(Payment $payment)
+    public function show(PaymentType $payment)
     {
         //
     }
@@ -67,7 +67,7 @@ class PaymentsController extends Controller
      * @param  \App\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Payment $payment)
+    public function edit(PaymentType $payment)
     {
         return view('payments.edit', [
             'payment' => $payment
@@ -81,7 +81,7 @@ class PaymentsController extends Controller
      * @param  \App\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function update(Payment $payment)
+    public function update(PaymentType $payment)
     {
         $attributes = request()->validate([
             'name' => ['required', 'max:255', 'string']
@@ -97,7 +97,7 @@ class PaymentsController extends Controller
      * @param  \App\Payment  $payment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Payment $payment)
+    public function destroy(PaymentType $payment)
     {
         $payment->delete();
 

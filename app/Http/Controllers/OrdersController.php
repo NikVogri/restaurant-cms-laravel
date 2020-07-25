@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Order;
-use App\OrderItem;
 use App\Cart;
-use App\Alert;
-use App\Item;
+
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -72,47 +70,32 @@ class OrdersController extends Controller
      */
     public function store()
     {
+
         // 1) Get all cart items
-        $cartItems = Cart::where('user_id', auth()->user()->id)->get();
+        $cart = auth()->user()->cart;
 
-        ///// calculate total price & get order items ID's
-        $totalPrice = 0;
-        $orderItems = [];
-
-        foreach ($cartItems as $cartItem) {
-            $totalPrice += $cartItem->item->price;
-            $orderItems[] = $cartItem->item->id;
+        if ($cart->totalPrice() < 1) {
+            return back();
         }
-
 
         // 2) Create order
-        $order =  Order::create([
-            'customer_id' => auth()->user()->id,
-            'price' => $totalPrice,
-            'completed' => false,
-            'paymentType_id' => isset(auth()->user()->paymentType->payment->id) ? auth()->user()->paymentType->payment->id : 1
-        ]);
+        $order = auth()->user()->orders()->create(
+            [
+                'payment_id' => auth()->user()->payment->payment_type_id
+            ]
+        );
 
         // 3) Create order items and attach them to order
-
-        foreach ($orderItems as $orderItem) {
-            $item = Item::where('id', $orderItem)->first();
-            OrderItem::create([
-                'order_id' => $order->id,
-                'item_id' => $orderItem,
-                'quantity' => 1, // hardcoded for now
-                'price' => $item->price
-            ]);
+        foreach ($cart->items as $item) {
+            $order->orderItems()->create(['item_id' => $item->item_id, 'quantity' => 1]);
         }
 
+
         // 4) Clear cart
-        Cart::where('user_id', auth()->user()->id)->delete();
+        $cart->items()->delete();
 
         // 5) Send an alert to cms
-        Alert::create([
-            'alert_type' => 'order',
-            'order' => $order->id,
-        ]);
+        $order->createAlert();
 
 
         return redirect('/')->with('message', 'Your order has been sent');
@@ -126,8 +109,10 @@ class OrdersController extends Controller
      */
     public function show(Order $order)
     {
+
         return view('orders.show', [
-            'order' => $order
+            'order' => $order,
+            'price' => $order->totalPrice()
         ]);
     }
 

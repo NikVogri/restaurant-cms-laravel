@@ -3,7 +3,9 @@
 namespace App;
 
 use App\Order;
-use App\UserPaymentType;
+use App\Cart;
+use App\PaymentType;
+use App\UserPayment;
 use App\UserMessage;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -20,7 +22,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'phone_number'
     ];
 
     /**
@@ -41,29 +43,33 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-    public function paymentType()
-    {
-        return $this->hasOne(UserPaymentType::class);
-    }
-
     public function orders()
     {
         return $this->hasMany(Order::class, 'customer_id');
     }
 
-    public function messages()
-    {
-        return $this->hasMany(UserMessage::class, 'receive_user_id');
-    }
-
     public function sendMessage($messageId)
     {
+        $this->messages()->attach($messageId);
+    }
 
+    public function messages()
+    {
+        return $this->belongsToMany(Message::class, 'message_user', 'recipient_id');
+    }
 
-        UserMessage::create([
-            'receive_user_id' => $this->id,
-            'message_id' => $messageId,
-        ]);
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
+
+    public function payment()
+    {
+        return $this->hasOne(UserPayment::class, 'user_id');
+    }
+
+    public function updatePayment($requestId)
+    {
+        return $this->payment()->updateOrCreate(['user_id' => $this->id], ['payment_type_id' => $requestId]);
     }
 }

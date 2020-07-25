@@ -16,9 +16,12 @@ class CreateAlertsTable extends Migration
         Schema::create('alerts', function (Blueprint $table) {
             $table->id();
             $table->text('alert_type');
-            $table->integer('order')->nullable();
-            $table->boolean('completed')->default(false);
+            $table->unsignedBigInteger('order_id');
             $table->timestamps();
+
+            $table->foreign('order_id')
+                ->references('id')
+                ->on('orders');
         });
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersPaymentTypeTable extends Migration
+class CreateCartItemTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,21 @@ class CreateUsersPaymentTypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_payment_type', function (Blueprint $table) {
+        Schema::create('cart_item', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('paymentType_id');
+            $table->unsignedBigInteger('cart_id');
+            $table->unsignedBigInteger('item_id');
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('cart_id')
                 ->references('id')
-                ->on('users');
+                ->on('carts')
+                ->onDelete('cascade');
 
-            $table->foreign('paymentType_id')
+            $table->foreign('item_id')
                 ->references('id')
-                ->on('payment_types');
+                ->on('items')
+                ->onDelete('cascade');
         });
     }
 
@@ -36,6 +38,6 @@ class CreateUsersPaymentTypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users_payment_type');
+        Schema::dropIfExists('cart_item');
     }
 }

@@ -10,6 +10,13 @@ use Spatie\Permission\Contracts\Role;
 
 class MessagesController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware(['role:admin'])->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +25,7 @@ class MessagesController extends Controller
     public function index()
     {
         return view('messages.index', [
-            'messages' => UserMessage::where('receive_user_id', auth()->user()->id)->get()
+            'messages' => auth()->user()->messages()->orderBy('created_at', 'DESC')->get()
         ]);
     }
 
@@ -51,7 +58,7 @@ class MessagesController extends Controller
 
         // 1) Create message
         $message = Message::create([
-            'from_user_id' => auth()->user()->id,
+            'author_id' => auth()->user()->id,
             'title' => request('title'),
             'body' => request('body'),
         ]);

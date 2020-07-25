@@ -8,15 +8,14 @@
         </li>
     </ol>
     <!-- DataTables Example -->
-    <div class="card mb-3">
+    <div class="card">
         <div class="card-body">
-            <h5 class="mb-3">{{ $message->title }} - {{ $message->created_at->diffForHumans() }}</h5>
-            <p>{{ $message->body }}</p>
-            <form action="{{ route('messages.update', $message->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-                <button class="btn btn-primary mt-3" type="submit">Mark as read</button>
-            </form>
+            <h5 class="d-inline">{{ $message->title }} </h5>
+            <span class="text-small text-secondary font-italic">
+                - {{ $message->created_at->diffForHumans() }} from {{ $message->author->name }}
+            </span>
+            <hr>
+            <p class="m-0 py-3">{{ $message->body }}</p>
         </div>
     </div>
     </div>

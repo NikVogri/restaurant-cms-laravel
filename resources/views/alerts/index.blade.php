@@ -8,25 +8,23 @@
     </ol>
     <ul class="list-group d-block">
         @forelse ($alerts as $alert)
-        @if ($alert->alert_type === 'order')
         <li class="list-group-item mb-1">
-            @if($alert->completed)
-            <span class="text-success">[Completed]</span>
+            @if($alert->order->completed)
+            <span class="text-success mr-5">[Completed]</span>
             @else
-            <span class="text-primary">[Active]</span>
+            <span class="text-primary mr-5">[Active]</span>
             @endif
             An order has been placed
 
-            <a href="{{ route('orders.show', $alert->order) }}">View order</a>
+            <a href="{{ route('orders.show', $alert->order->id) }}">View order</a>
 
-            @if(!$alert->completed)
-            <form action="{{ route('alerts.update', $alert->id) }}" method="POST" class="float-right">
+            @if(!$alert->order->completed)
+            <form action="{{ route('orders.complete', $alert->order->id) }}" method="POST" class="float-right">
                 @csrf
                 @method('PUT')
                 <button class="btn btn-primary btn-sm">Complete
                     order</button>
             </form>
-            @endif
         </li>
         @endif
         @empty

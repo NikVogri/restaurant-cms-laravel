@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
-use App\Item;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -15,27 +14,21 @@ class CartController extends Controller
     public function index()
     {
 
-        // calculate total price
-        $cartItems = Cart::where('user_id', auth()->user()->id)->get();
-        $totalPrice = 0;
+        $cart = Cart::firstOrCreate(['user_id' => auth()->user()->id]);
 
-        foreach ($cartItems as $cartItem) {
-            $totalPrice += $cartItem->item->price;
-        }
-
-        // return view with all items in cart
         return view('cart.index', [
-            'cartItems' => Cart::where('user_id', auth()->user()->id)->get(),
-            'totalPrice' => $totalPrice
+            'cartItems' => $cart->items,
+            'totalPrice' => $cart->totalPrice()
         ]);
     }
 
-    public function store($item_id)
+    public function store($itemId)
     {
-        Cart::create([
-            'user_id' => auth()->user()->id,
-            'item_id' => $item_id
-        ]);
+        // check if cart already exists
+        $cart = Cart::firstOrCreate(['user_id' => auth()->user()->id]);
+
+        // add item to cart
+        $cart->items()->create(['item_id' => $itemId]);
 
         return back()->with('message', 'Item added to cart');
     }

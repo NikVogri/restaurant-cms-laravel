@@ -19,20 +19,6 @@ class AlertsController extends Controller
         ]);
     }
 
-    public function completed()
-    {
-        return view('alerts.completed', [
-            'alerts' => Alert::orderBy('created_at', 'DESC')->where('completed', true)->get()
-        ]);
-    }
-
-    public function active()
-    {
-        return view('alerts.active', [
-            'alerts' => Alert::orderBy('created_at', 'DESC')->where('completed', false)->get()
-        ]);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -85,7 +71,7 @@ class AlertsController extends Controller
      */
     public function update(Alert $alert)
     {
-        $alert->update(['completed' => true]);
+        $alert->complete();
         return redirect(route('alerts.index'))->with('message', 'Alert updated');
     }
 

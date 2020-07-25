@@ -11,7 +11,7 @@ class PaymentTypesSeeder extends Seeder
      */
     public function run()
     {
-        $categoriesList = ['Credit Card', 'Cash on Delivery', 'Paypal'];
+        $categoriesList = ['Cash on Delivery', 'Credit Card', 'Paypal'];
 
         foreach ($categoriesList as $item) {
             DB::table('payment_types')->insert(['name' => $item]);

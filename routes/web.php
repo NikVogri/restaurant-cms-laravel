@@ -50,8 +50,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/cms/users', 'UsersController@index')->name('users.index');
     // vvv promote user vvv
     Route::get('/cms/users/{user}/edit', 'UsersController@edit')->name('users.edit');
-    Route::put('/cms/users/{user}/update', 'UsersController@update')->name('users.update');
-    // vvvv ban users vvv
+    Route::put('/cms/users/{user}/update', 'UsersController@updateRole')->name('users.update');
+    // vvvv remove users vvv
     Route::delete('/cms/users/{item}/destroy', 'UsersController@destroy')->name('users.destroy');
 
 
@@ -80,6 +80,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/cms/alerts/completed', 'AlertsController@completed')->name('alerts.completed');
     Route::get('/cms/alerts/active', 'AlertsController@active')->name('alerts.active');
     Route::put('/cms/alerts/{alert}/update', 'AlertsController@update')->name('alerts.update');
+
+    // Profile
+    Route::get('/cms/profile', 'UsersController@profile')->name('users.profile');
+    Route::put('/cms/profile', 'UsersController@updateProfile')->name('users.updateProfile');
 });
 
 
