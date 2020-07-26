@@ -85,8 +85,9 @@ class MessagesController extends Controller
      * @param  \App\Messages  $messages
      * @return \Illuminate\Http\Response
      */
-    public function show(Message $message)
+    public function show($messageId)
     {
+        $message = current_user()->messages()->find($messageId);
         return view(
             'messages.show',
             ['message' => $message]
@@ -111,9 +112,11 @@ class MessagesController extends Controller
      * @param  \App\Messages  $messages
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Message $message)
+    public function update($messageId)
     {
-        //
+        current_user()->markAsRead($messageId);
+
+        return redirect(route('messages.index'));
     }
 
     /**

@@ -68,6 +68,7 @@ class AlertsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Alert  $alert
      * @return \Illuminate\Http\Response
+     * Add this functionality &&&
      */
     public function update(Alert $alert)
     {

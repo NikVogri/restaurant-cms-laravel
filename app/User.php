@@ -49,12 +49,19 @@ class User extends Authenticatable
 
     public function sendMessage($messageId)
     {
-        $this->messages()->attach($messageId);
+        return $this->messages()->attach($messageId);
     }
 
     public function messages()
     {
-        return $this->belongsToMany(Message::class, 'message_user', 'recipient_id');
+        return $this->belongsToMany(Message::class, 'message_user', 'recipient_id')
+            ->using(MessageUser::class)
+            ->withPivot(['read']);
+    }
+
+    public function markAsRead($messageId)
+    {
+        $this->messages()->updateExistingPivot($messageId, ['read' => true]);
     }
 
     public function cart()

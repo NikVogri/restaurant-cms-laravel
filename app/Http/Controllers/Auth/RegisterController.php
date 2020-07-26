@@ -73,6 +73,13 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
+        $user->address()->create([
+            'city' => $data['city'],
+            'post_code' => $data['post_code'],
+            'street_name' => $data['street_name'],
+            'street_num' => $data['street_num'],
+        ]);
+
         return $user->assignRole(['guest']);
     }
 }

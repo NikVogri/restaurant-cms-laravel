@@ -17,6 +17,7 @@ class CreateMessageUserTable extends Migration
             $table->id();
             $table->unsignedBigInteger('recipient_id');
             $table->unsignedBigInteger('message_id');
+            $table->boolean('read')->default(false);
             $table->timestamps();
 
             $table->foreign('recipient_id')

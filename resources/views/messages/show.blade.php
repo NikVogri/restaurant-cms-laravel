@@ -16,8 +16,14 @@
             </span>
             <hr>
             <p class="m-0 py-3">{{ $message->body }}</p>
+            @if(!$message->pivot->read)
+            <form action="{{ route('messages.update', $message->id) }}" method="post">
+                @csrf
+                @method('PUT')
+                <button class="btn btn-warning btn-sm " type="submit">Mark as Read</button>
+            </form>
+            @endif
         </div>
     </div>
     </div>
-
 </x-app>

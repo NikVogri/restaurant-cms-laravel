@@ -13,19 +13,6 @@
         </div>
         <div class="card-body">
             <div class="table-responsive ">
-                @if(!$order->completed)
-                <form action="{{ route('orders.complete', $order->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <button class="btn btn-success mb-3">Complete order</button>
-                </form>
-                @else
-                <div class="card m-0 mb-2 d-inline-block border-success">
-                    <div class="card-body p-2">
-                        <h5 class="m-0 text-success">Order completed {{ $order->updated_at->diffForHumans() }}</h5>
-                    </div>
-                </div>
-                @endif
                 <table class="table table-bordered" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -44,13 +31,32 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="card d-inline-block mt-2 p-0 text-center p-2">
-                    <div class="card-body">
-                        <h5 class="m-0">Total price: {{ $price }} €</h5>
-                    </div>
+
+                <h4 class="m-0 mb-2">Total price: {{ $price }} €</h4>
+                <hr>
+
+            </div>
+
+            <h5 class="my-2">Delivery details</h5>
+            <p>{{ $order->customer->address->street_name}} {{ $order->customer->address->street_num}}</p>
+            <p>{{ $order->customer->address->city}}</p>
+            <p>{{ $order->customer->address->post_code}}</p>
+            @if(!$order->completed)
+            <form action="{{ route('orders.complete', $order->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <button class="btn btn-success mb-3">Complete order</button>
+            </form>
+            @else
+            <div class="card m-0 mb-2 d-inline-block border-success">
+                <div class="card-body p-2">
+                    <h5 class="m-0 text-success">Order completed {{ $order->updated_at->diffForHumans() }}</h5>
                 </div>
             </div>
+            @endif
         </div>
     </div>
+    </div>
+
     </div>
 </x-app>

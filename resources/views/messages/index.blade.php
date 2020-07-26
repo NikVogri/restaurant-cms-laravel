@@ -12,7 +12,7 @@
     <ul class="list-group d-block">
         @forelse ($messages as $message)
 
-        <li class="list-group-item mb-1">
+        <li class="list-group-item mb-1 {{ $message->pivot->read ? 'bg-light' : '' }}">
 
             <span>{{ $message->author->name }} </span>
             <a class="ml-5" href="{{ route('messages.show', $message->id ) }}">{{ $message->title }}</a>
@@ -22,5 +22,6 @@
         @empty
         <h5 class="text-secondary">No messages yet</h5>
         @endforelse
+
     </ul>
 </x-app>

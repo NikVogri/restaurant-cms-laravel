@@ -12,6 +12,7 @@
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user-circle fa-fw"></i>
+                <span class="badge badge-danger">{{ session('messagesCount') ? session('messagesCount') : 0 }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="{{ route('users.profile') }}">Settings</a>
@@ -21,11 +22,10 @@
             </div>
             @include('modals.logoutModal')
         </li>
-
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="{{ route('messages.index') }}">
                 <i class="fas fa-envelope"></i>
-                <span class="badge badge-danger">0</span>
+                <span class="badge badge-danger">{{ session('alertsCount') ? session('alertsCount') : 0 }}</span>
             </a>
         </li>
 

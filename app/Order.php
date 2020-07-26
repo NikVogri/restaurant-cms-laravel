@@ -35,6 +35,10 @@ class Order extends Model
 
     public function complete($completed = true)
     {
+        // remove alert message
+
+        $this->alert->remove();
+
         return $this->update([
             'completed' => $completed
         ]);
