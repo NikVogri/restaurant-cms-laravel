@@ -38,7 +38,7 @@
             </div>
             @endif
 
-            <div class="container  mt-5 mb-5">
+            <div class="container  mt-5 mb-5" id="items">
                 <h2 class="mb-3 text-center">Order Food Online!</h2>
                 <div class="flex-center flex-wrap">
                     @foreach ($items as $item)
@@ -48,10 +48,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ $item->name }}</h5>
                             <p class="card-text">{{ $item->description }}</p>
-                            <form action="{{ route('cart.store', $item->id) }}" method="POST">
-                                @csrf
-                                <button class="btn btn-primary" type="submit">Add to cart</button>
-                            </form>
+                            <button class="btn btn-primary add-cart" data-id="{{ $item->id }}">Add to cart</button>
                         </div>
                     </div>
                     @endforeach
@@ -60,7 +57,6 @@
                     {{ $items->links() }}
                 </div>
             </div>
-
         </div>
 
 </x-master>
