@@ -73,8 +73,6 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
 
-        $user->payment()->create(['payment_type_id', 1]);
-
         return $user->assignRole(['guest']);
     }
 }

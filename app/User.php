@@ -5,8 +5,7 @@ namespace App;
 use App\Order;
 use App\Cart;
 use App\PaymentType;
-use App\UserPayment;
-use App\UserMessage;
+use App\Address;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
@@ -22,7 +21,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone_number'
+        'name', 'email', 'password', 'phone_number', 'payment_type_id'
     ];
 
     /**
@@ -65,11 +64,11 @@ class User extends Authenticatable
 
     public function payment()
     {
-        return $this->hasOne(UserPayment::class, 'user_id');
+        return $this->belongsTo(PaymentType::class, 'payment_type_id');
     }
 
-    public function updatePayment($requestId)
+    public function address()
     {
-        return $this->payment()->updateOrCreate(['user_id' => $this->id], ['payment_type_id' => $requestId]);
+        return $this->hasOne(Address::class);
     }
 }

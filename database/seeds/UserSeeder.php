@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use App\User;
 
 class UserSeeder extends Seeder
@@ -12,6 +13,16 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\User::class, 3)->create();
+        // factory(App\User::class, 3)->create();
+
+        // create admin
+        $user = new User;
+        $user->name = 'Admin';
+        $user->email = 'admin@admin.com';
+        $user->email_verified_at = now();
+        $user->password = 'password';
+        $user->remember_token = Str::random(10);
+        $user->syncRoles([1]);
+        $user->save();
     }
 }

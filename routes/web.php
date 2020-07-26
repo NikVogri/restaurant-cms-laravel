@@ -83,7 +83,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Profile
     Route::get('/cms/profile', 'UsersController@profile')->name('users.profile');
-    Route::put('/cms/profile', 'UsersController@updateProfile')->name('users.updateProfile');
+    Route::get('/cms/address', 'UsersController@address')->name('users.address');
+    Route::put('/cms/user/update-profile', 'UsersController@updateProfile')->name('users.updateProfile');
+    Route::post('/cms/user/add-address', 'UsersController@addAddress')->name('users.addAddress');
+    Route::put('/cms/user/update-address', 'UsersController@updateAddress')->name('users.updateAddress');
 });
 
 

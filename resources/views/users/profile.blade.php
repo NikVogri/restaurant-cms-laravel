@@ -29,30 +29,32 @@
 
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control" id="email" name="email" value={{ $user->email }}>
+                            <input type="text" class="form-control" id="email" name="email" value="{{ $user->email }}"">
                             @error('email')
-                            <p class="text-danger text-small">{{ $message }}</p>
+                            <p class=" text-danger text-small">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="phone_number">Phone Number</label>
                             <input type="text" class="form-control" id="phone_number" name="phone_number"
-                                value={{ $user->phone_number }}>
+                                value="{{ $user->phone_number }}">
                             @error('phone_number')
-                            <p class="text-danger text-small">{{ $message }}</p>
+                            <p class=" text-danger text-small">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="payment">Preferred Payment Type</label>
-                            <select name="paymentType_id" id="payment" class="form-control">
+                            <select name="payment_type_id" id="payment" class="form-control">
                                 @foreach ($paymentTypes as $paymentType)
-                                <option value="{{ $paymentType->id }}">{{ $paymentType->name }}</option>
+                                <option value="{{ $paymentType->id }}"
+                                    {{ $user->payment->id === $paymentType->id ? 'selected' : ''}}>
+                                    {{ $paymentType->name }}</option>
                                 @endforeach
                             </select>
 
-                            @error('paymentType_id')
+                            @error('payment_type_id')
                             <p class="text-danger text-small">{{ $message }}</p>
                             @enderror
                         </div>

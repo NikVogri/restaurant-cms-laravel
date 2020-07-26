@@ -13,7 +13,7 @@ class UsersController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['role:admin'])->except(['profile', 'updateProfile']);
+        $this->middleware(['role:admin'])->except(['profile', 'updateProfile', 'address', 'updateAddress', 'addAddress']);
     }
     /**
      * Display a listing of the resource.
@@ -35,6 +35,13 @@ class UsersController extends Controller
         ]);
     }
 
+
+    public function address()
+    {
+        return view('users.address', [
+            'user' => Auth::user(),
+        ]);
+    }
 
 
     /**
@@ -79,13 +86,40 @@ class UsersController extends Controller
             'name' => ['string', 'required', 'max:255'],
             'email' => ['email', 'required'],
             'phone_number' => ['nullable', 'string', 'max:9'],
+            'payment_type_id' => ['required']
         ]);
 
         $user = Auth::user();
-        $user->updatePayment(request('paymentType_id'));
         $user->update($attributes);
 
         return back()->with('message', 'User role updated');
+    }
+
+
+    public function addAddress()
+    {
+        $attributes = request()->validate([
+            'city' => ['string', 'required'],
+            'post_code' => ['string', 'required'],
+            'street_name' => ['string', 'required'],
+            'street_num' => ['string', 'required']
+        ]);
+
+        auth()->user()->address()->create($attributes);
+        return back()->with('message', 'User address added');
+    }
+
+    public function updateAddress()
+    {
+        $attributes = request()->validate([
+            'city' => ['string', 'required'],
+            'post_code' => ['string', 'required'],
+            'street_name' => ['string', 'required'],
+            'street_num' => ['string', 'required']
+        ]);
+
+        auth()->user()->address()->update($attributes);
+        return back()->with('message', 'User address updated');
     }
 
     /**

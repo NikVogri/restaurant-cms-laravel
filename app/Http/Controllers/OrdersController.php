@@ -79,11 +79,7 @@ class OrdersController extends Controller
         }
 
         // 2) Create order
-        $order = auth()->user()->orders()->create(
-            [
-                'payment_id' => auth()->user()->payment->payment_type_id
-            ]
-        );
+        $order = auth()->user()->orders()->create(['payment_id' => auth()->user()->payment_type_id]);
 
         // 3) Create order items and attach them to order
         foreach ($cart->items as $item) {
