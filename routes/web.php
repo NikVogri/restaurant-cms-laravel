@@ -67,6 +67,7 @@ Route::group(['middleware' => ['auth']], function () {
     // Front end
     Route::get('/cart', 'CartController@index')->name('cart.index');
     Route::post('/cart/{item}/store', 'CartController@store')->name('cart.store');
+    Route::delete('/cart/{item}/destroy', 'CartController@destroy')->name('cart.destroy');
 
     // Messages
     Route::get('/cms/messages', 'MessagesController@index')->name('messages.index');

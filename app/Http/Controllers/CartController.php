@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\CartItem;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -31,5 +32,11 @@ class CartController extends Controller
         $cart->items()->create(['item_id' => $itemId]);
 
         return back()->with('message', 'Item added to cart');
+    }
+
+    public function destroy($itemId)
+    {
+        CartItem::where('id', $itemId)->delete();
+        return back()->with('message', 'Item removed from cart');
     }
 }

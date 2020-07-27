@@ -19,9 +19,12 @@ class Alerts
     {
         $response = $next($request);
 
-        $alertsCount = Alert::count();
-        $messageCount = current_user()->messages()->where('read', false)->count();
-        session(['alertsCount' => $alertsCount, 'messagesCount' => $messageCount]);
+        if (current_user()) {
+            $alertsCount = Alert::count();
+            $messageCount = current_user()->messages()->where('read', false)->count();
+            session(['alertsCount' => $alertsCount, 'messagesCount' => $messageCount]);
+        }
+
 
         return $response;
     }
