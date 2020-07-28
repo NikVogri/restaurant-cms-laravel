@@ -7,13 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Alert extends Model
 {
-    protected $fillable = ['alert_type', 'order', 'completed'];
-
-
-    public function order()
-    {
-        return $this->belongsTo(Order::class);
-    }
+    protected $fillable = ['alert_type'];
 
     public function remove()
     {

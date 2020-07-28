@@ -69,19 +69,31 @@
                 </div>
 
                 <div class="col-md-7 mb-5 site-animate">
-                    <form action="" method="post">
+                    <form action="{{ route('contacts.store') }}" method="post">
+                        @csrf
                         <div class="form-group">
                             <label for="name" class="sr-only">Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Name">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Name"
+                                value="{{ old('name') }}">
+                            @error('name')
+                            <p class="text-small text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="email" class="sr-only">Email</label>
-                            <input type="text" class="form-control" id="email" placeholder="Email">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Email"
+                                value="{{ old('email') }}">
+                            @error('email')
+                            <p class="text-small text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label for="message" class="sr-only">Message</label>
-                            <textarea name="message" id="message" cols="30" rows="10" class="form-control"
-                                placeholder="Write your message"></textarea>
+                            <label for="body" class="sr-only">Body</label>
+                            <textarea name="body" id="body" cols="30" rows="10" name="body" class="form-control"
+                                placeholder="Write your body">{{ old('body') }}</textarea>
+                            @error('body')
+                            <p class="text-small text-danger">{{ $message }}</p>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-primary btn-lg" value="Send Message">

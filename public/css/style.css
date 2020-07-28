@@ -926,6 +926,19 @@ textarea.form-control {
     box-shadow: none;
 }
 
+.logout input {
+    background: none;
+    border: none;
+    font-size: 13px;
+    padding: 30px 20px;
+    cursor: pointer;
+}
+
+.logout input:focus {
+    outline: none;
+}
+
+
 #site-loader.show {
     -webkit-transition: opacity .4s ease-out, visibility 0s linear 0s;
     -o-transition: opacity .4s ease-out, visibility 0s linear 0s;
@@ -1010,6 +1023,7 @@ textarea.form-control {
     transform: translateX(50%);
     visibility: hidden;
 }
+
 
 @keyframes alertAnimation {
     0% {

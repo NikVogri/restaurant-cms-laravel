@@ -9,24 +9,24 @@
     <ul class="list-group d-block">
         @forelse ($alerts as $alert)
         <li class="list-group-item mb-1">
-            @if($alert->order->completed)
-            <span class="text-success mr-5">[Completed]</span>
-            @else
-            <span class="text-primary mr-5">[Active]</span>
+
+
+            @if($alert->alert_type === 'order')
+            A new order has been received <small class="text-muted">[{{ $alert->created_at->diffForHumans() }}]</small>
             @endif
-            An order has been placed
 
-            <a href="{{ route('orders.show', $alert->order->id) }}">View order</a>
+            @if($alert->alert_type === 'contact')
+            A new contact form submission has been received <small
+                class="text-muted">[{{ $alert->created_at->diffForHumans() }}]</small>
+            @endif
 
-            @if(!$alert->order->completed)
-            <form action="{{ route('orders.complete', $alert->order->id) }}" method="POST" class="float-right">
+            <form action="{{ route('alerts.destroy', $alert->id) }}" method="POST" class="float-right">
                 @csrf
-                @method('PUT')
-                <button class="btn btn-primary btn-sm">Complete
-                    order</button>
+                @method('DELETE')
+                <button class="btn btn-primary btn-sm">Complete</button>
             </form>
         </li>
-        @endif
+
         @empty
         <h5 class="text-center text-secondary mt-5">No Alerts Yet</h5>
         @endforelse

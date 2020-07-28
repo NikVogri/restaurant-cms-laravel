@@ -84,6 +84,7 @@ class AlertsController extends Controller
      */
     public function destroy(Alert $alert)
     {
-        //
+        $alert->delete();
+        return back()->with('message', 'Alert marked as completed');
     }
 }

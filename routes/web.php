@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'WelcomeController@index');
+
+// Contact Form
+Route::get('/contacts', 'ContactsController@index')->name('contacts.index');
+Route::get('/contacts/{contact}/show', 'ContactsController@show')->name('contacts.show');
+Route::put('/contacts/{contact}/update', 'ContactsController@update')->name('contacts.update');
+Route::post('/send-contact', 'ContactsController@store')->name('contacts.store');
+
+
+
 Route::group(['middleware' => ['auth']], function () {
 
     // Dashboard
@@ -78,9 +87,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Alerts
     Route::get('/cms/alerts/all', 'AlertsController@index')->name('alerts.index');
-    Route::get('/cms/alerts/completed', 'AlertsController@completed')->name('alerts.completed');
-    Route::get('/cms/alerts/active', 'AlertsController@active')->name('alerts.active');
-    Route::put('/cms/alerts/{alert}/update', 'AlertsController@update')->name('alerts.update');
+    Route::delete('/cms/alerts/{alert}/destroy', 'AlertsController@destroy')->name('alerts.destroy');
 
     // Profile
     Route::get('/cms/profile', 'UsersController@profile')->name('users.profile');

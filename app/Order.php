@@ -4,7 +4,6 @@ namespace App;
 
 use App\User;
 use App\paymentType;
-use App\Alert;
 use App\OrderItem;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,16 +20,6 @@ class Order extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
-    }
-
-    public function alert()
-    {
-        return $this->hasOne(Alert::class);
-    }
-
-    public function createAlert()
-    {
-        return  $this->alert()->create(['alert_type' => 'order']);
     }
 
     public function complete($completed = true)

@@ -91,7 +91,7 @@ class OrdersController extends Controller
         $cart->items()->delete();
 
         // 5) Send an alert to cms
-        $order->createAlert();
+        create_alert('order');
 
 
         return redirect('/')->with('message', 'Your order has been sent');

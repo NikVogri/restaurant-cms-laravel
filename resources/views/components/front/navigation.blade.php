@@ -11,10 +11,15 @@
                 <li class="nav-item"><a href="#section-home" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="/#section-menu" class="nav-link">Menu</a></li>
                 <li class="nav-item"><a href="/#section-contact" class="nav-link">Contact</a></li>
-
                 @auth
                 <li class="nav-item {{ Request::path() == '/cart' ? 'active' : '' }}"><a
                         href="{{ route('cart.index') }}" class=" nav-link">View Cart</a></li>
+                <li class="nav-item">
+                    <form action="{{ route('logout') }}" method="POST" class="logout">
+                        @csrf
+                        <input type="submit" value="LOGOUT" class="nav-link">
+                    </form>
+                </li>
                 @else
                 <li class="nav-item"><a href="{{ route('login') }}" class=" nav-link">Login</a></li>
                 <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Register</a></li>

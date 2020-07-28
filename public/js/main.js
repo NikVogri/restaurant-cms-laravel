@@ -174,24 +174,32 @@ $(document).ready(function($) {
         }
     });
 
-    $("#m_date").datepicker({
-        format: "m/d/yyyy",
-        autoclose: true
-    });
-    $("#m_time").timepicker();
-
     $(document).on("click", "button[data-add_id]", function(e) {
         const itemId = $(this).attr("data-add_id");
 
-        console.log("first");
         $.ajax({
             method: "POST",
             url: "/cart/" + itemId + "/store",
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
             }
-        }).done(function() {
-            console.log("Item added to cart");
-        });
+        })
+
+            .done(function() {
+                console.log("done");
+                $(
+                    "body"
+                ).append(` <div class="toast" style="position: fixed; top: 10%; right: 50%; radius">
+        <div class="toast-body p-2 text-light text-center" style="background: black; ">
+           Item Added To Cart
+        </div>
+    </div>`);
+            })
+            .fail(function(res) {
+                if (res.status === 401) {
+                    console.log("here");
+                    window.location.replace(window.location.origin + "/login");
+                }
+            });
     });
 });

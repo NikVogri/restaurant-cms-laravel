@@ -28,6 +28,7 @@
     </div>
     @endif
 
+
     <x-front.navigation></x-front.navigation>
     {{ $slot }}
 
@@ -48,8 +49,6 @@
     <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
 
-    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('js/jquery.timepicker.min.js') }}"></script>
 
     <script src="{{ asset('js/jquery.animateNumber.min.js') }}"></script>
 
