@@ -24,7 +24,8 @@
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="{{ route('messages.index') }}">
                 <i class="fas fa-envelope"></i>
-                <span class="badge badge-danger">{{ session('alertsCount') ? session('alertsCount') : '' }}</span>
+                <span class="badge badge-danger">{{ $alertCount ? $alertCount : '' }}</span>
+
             </a>
         </li>
 

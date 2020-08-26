@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Alert;
+use App\Order;
 use Illuminate\Http\Request;
 
 class AlertsController extends Controller

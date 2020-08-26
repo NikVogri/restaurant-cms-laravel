@@ -24,10 +24,6 @@ class Order extends Model
 
     public function complete($completed = true)
     {
-        // remove alert message
-
-        $this->alert->remove();
-
         return $this->update([
             'completed' => $completed
         ]);
@@ -52,5 +48,15 @@ class Order extends Model
             $price += $orderItem->item->price;
         }
         return $price;
+    }
+
+    public function alert()
+    {
+        return $this->morphOne('App\Alert', 'alertable');
+    }
+
+    public function path()
+    {
+        return '/cms/orders/' . $this->id . '/show';
     }
 }

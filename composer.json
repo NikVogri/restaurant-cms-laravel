@@ -43,8 +43,7 @@
             "database/factories"
         ],
         "files": [
-            "app/Helpers/current_user.php",
-            "app/Helpers/create_alert.php"
+            "app/Helpers/current_user.php"
         ]
     },
     "autoload-dev": {

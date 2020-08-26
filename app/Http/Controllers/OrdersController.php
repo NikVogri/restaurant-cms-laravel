@@ -70,7 +70,6 @@ class OrdersController extends Controller
      */
     public function store()
     {
-
         // 1) Get all cart items
         $cart = auth()->user()->cart;
 
@@ -87,12 +86,9 @@ class OrdersController extends Controller
         }
 
 
+
         // 4) Clear cart
         $cart->items()->delete();
-
-        // 5) Send an alert to cms
-        create_alert('order');
-
 
         return redirect('/')->with('message', 'Your order has been sent');
     }

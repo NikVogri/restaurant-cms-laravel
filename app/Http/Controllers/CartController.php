@@ -25,6 +25,7 @@ class CartController extends Controller
 
     public function store($itemId)
     {
+
         // check if cart already exists
         $cart = Cart::firstOrCreate(['user_id' => auth()->user()->id]);
 

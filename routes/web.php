@@ -87,7 +87,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Alerts
     Route::get('/cms/alerts/all', 'AlertsController@index')->name('alerts.index');
-    Route::delete('/cms/alerts/{alert}/destroy', 'AlertsController@destroy')->name('alerts.destroy');
 
     // Profile
     Route::get('/cms/profile', 'UsersController@profile')->name('users.profile');

@@ -32,11 +32,7 @@ class ContactsController extends Controller
             'body' => ['required', 'string']
         ]);
 
-        // Create contact
         Contact::create($attributes);
-        // Send an alert to cm
-        create_alert('contact');
-
         return back()->with('message', 'Message sent');
     }
 
