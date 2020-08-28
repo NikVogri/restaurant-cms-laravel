@@ -25,4 +25,9 @@ class Alert extends Model
     {
         return $this->belongsTo(Contact::class, 'alertable_id');
     }
+
+    public function complete()
+    {
+        $this->delete();
+    }
 }

@@ -127,6 +127,7 @@ class OrdersController extends Controller
      */
     public function complete(Order $order)
     {
+        $order->alert->complete();
         $order->complete();
         // Optional Send email to customer
 

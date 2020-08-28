@@ -82,7 +82,7 @@ class AlertsController extends Controller
             $alert->order->complete();
         }
 
-        $alert->delete();
+        $alert->complete();
 
         return back();
     }
