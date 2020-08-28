@@ -96,6 +96,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/cms/user/update-profile', 'UsersController@updateProfile')->name('users.updateProfile');
     Route::post('/cms/user/add-address', 'UsersController@addAddress')->name('users.addAddress');
     Route::put('/cms/user/update-address', 'UsersController@updateAddress')->name('users.updateAddress');
+
+
+    // Coupons
+    Route::get('/cms/coupons', 'CouponController@index')->name('coupons.index');
+    Route::get('/cms/coupons/create', 'CouponController@create')->name('coupons.create');
+    Route::post('/cms/coupons', 'CouponController@store')->name('coupons.store');
 });
 
 

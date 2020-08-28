@@ -36,8 +36,19 @@
 
         <li class="nav-item">
             <a class="nav-link" href="{{ route('categories.index') }}">
-                <i class="fas fa-chart-bar"></i>
+                <i class="fas fa-cubes"></i>
                 <span>Categories</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('coupons.index') }}">
+                <i class="fas fa-ticket-alt"></i>
+                <span>Coupons</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="fas fa-chart-bar"></i>
+                <span>Reports</span></a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('items.index') }}">
