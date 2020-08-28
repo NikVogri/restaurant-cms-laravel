@@ -2,7 +2,6 @@
     @forelse ($alerts as $alert)
     <li class="list-group-item mb-1">
 
-
         @if($alert->alertable_type === 'App\Order')
         @include('alerts.types.orderAlert')
         @endif

@@ -71,10 +71,20 @@ class AlertsController extends Controller
      * @return \Illuminate\Http\Response
      * Add this functionality &&&
      */
+
+
     public function update(Alert $alert)
     {
-        $alert->complete();
-        return redirect(route('alerts.index'))->with('message', 'Alert updated');
+
+        if ($alert->alertable_type === 'App\Contact') {
+            $alert->contact->markAsRead();
+        } elseif ($alert->alertable_type === 'App\Order') {
+            $alert->order->complete();
+        }
+
+        $alert->delete();
+
+        return back();
     }
 
     /**

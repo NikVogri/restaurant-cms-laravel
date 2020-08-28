@@ -12,11 +12,14 @@
     <ul class="list-group d-block">
         @forelse ($messages as $message)
 
-        <li class="list-group-item mb-1 {{ $message->pivot->read ? 'bg-light' : '' }}">
+        <li class="list-group-item mb-1 {{ $message->read ? 'bg-light' : '' }}">
 
             <span>{{ $message->author->name }} </span>
             <a class="ml-5" href="{{ route('messages.show', $message->id ) }}">{{ $message->title }}</a>
             <span class="float-right mr-3">{{ $message->created_at->diffForHumans() }}</span>
+            @if($message->read)
+            <small>[Read]</small>
+            @endif
         </li>
 
         @empty

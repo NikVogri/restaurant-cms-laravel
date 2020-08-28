@@ -2,18 +2,20 @@
 
 namespace App;
 
-use App\Order;
 use App\Cart;
-use App\PaymentType;
+use App\Order;
 use App\Address;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Message;
+use App\PaymentType;
+use App\Traits\Messaging;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles, Messaging;
 
     /**
      * The attributes that are mass assignable.
@@ -47,21 +49,9 @@ class User extends Authenticatable
         return $this->hasMany(Order::class, 'customer_id');
     }
 
-    public function sendMessage($messageId)
-    {
-        return $this->messages()->attach($messageId);
-    }
-
     public function messages()
     {
-        return $this->belongsToMany(Message::class, 'message_user', 'recipient_id')
-            ->using(MessageUser::class)
-            ->withPivot(['read']);
-    }
-
-    public function markAsRead($messageId)
-    {
-        $this->messages()->updateExistingPivot($messageId, ['read' => true]);
+        return $this->hasMany(Message::class);
     }
 
     public function cart()

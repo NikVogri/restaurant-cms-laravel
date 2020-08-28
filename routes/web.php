@@ -87,6 +87,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Alerts
     Route::get('/cms/alerts/all', 'AlertsController@index')->name('alerts.index');
+    Route::patch('/cms/alerts/{alert}/complete', 'AlertsController@update')->name('alerts.complete');
+
 
     // Profile
     Route::get('/cms/profile', 'UsersController@profile')->name('users.profile');

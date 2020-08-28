@@ -3,8 +3,8 @@
     received <small class="text-muted">[{{ $alert->created_at->diffForHumans() }}]</small>
 </a>
 
-<form action="#" method="POST" class="float-right">
+<form action="{{ route('alerts.complete', $alert->id) }}" method="POST" class="float-right">
     @csrf
-    @method('UPDATE')
+    @method('PATCH')
     <button class="btn btn-warning btn-sm">Mark as Read</button>
 </form>

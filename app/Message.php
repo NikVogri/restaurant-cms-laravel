@@ -3,24 +3,21 @@
 namespace App;
 
 use App\User;
-use App\MessageUser;
 use Illuminate\Database\Eloquent\Model;
 
 class Message extends Model
 {
     //
 
-    protected $fillable = ['title', 'body', 'author_id', 'read'];
+    protected $guarded = [];
 
-    public function users()
+    public function user()
     {
-        return $this->hasMany(User::class)
-            ->using(MessageUser::class)
-            ->withPivot(['read']);;
+        return $this->belongsTo(User::class);
     }
 
     public function author()
     {
-        return $this->belongsTo(User::class, 'author_id');
+        return $this->belongsTo(User::class);
     }
 }

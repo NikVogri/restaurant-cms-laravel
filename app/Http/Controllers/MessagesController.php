@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MessagesRequest;
 use App\Message;
 use App\User;
-use App\UserMessage;
+
 use Illuminate\Http\Request;
 use Spatie\Permission\Contracts\Role;
 
@@ -47,34 +48,13 @@ class MessagesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MessagesRequest $request)
     {
-        request()->validate([
-            'body' => ['required', 'string', 'max:1024'],
-            'title' => ['required', 'string', 'max:255'],
-            'select_all' => ['nullable'],
-            'users' => ['nullable']
-        ]);
+        $users =  request('select_all') ?
+            User::role(['staff', 'admin'])->get() :
+            User::findMany(request('users'));
 
-        // 1) Create message
-        $message = Message::create([
-            'author_id' => auth()->user()->id,
-            'title' => request('title'),
-            'body' => request('body'),
-        ]);
-
-        if (request('select_all')) {
-            // get all users with staff or admin roles
-            $users = User::role(['staff', 'admin'])->get();
-        } else {
-            // get users from array
-            $users = User::findMany(request('users'));
-        }
-
-
-        foreach ($users as $user) {
-            $user->sendMessage($message->id);
-        }
+        $this->sendMessages($users, $request);
 
         return redirect(route('messages.index'))->with('message', 'Message Sent');
     }
@@ -112,10 +92,9 @@ class MessagesController extends Controller
      * @param  \App\Messages  $messages
      * @return \Illuminate\Http\Response
      */
-    public function update($messageId)
+    public function update(Message $message)
     {
-        current_user()->markAsRead($messageId);
-
+        $message->update(['read' => true]);
         return redirect(route('messages.index'));
     }
 
@@ -128,5 +107,16 @@ class MessagesController extends Controller
     public function destroy(Message $message)
     {
         //
+    }
+
+    protected function sendMessages($users, $request)
+    {
+        $users->each(function ($user) use ($request) {
+            $user->messages()->create([
+                'author_id' => auth()->user()->id,
+                'title' => $request->title,
+                'body' => $request->body,
+            ]);
+        });
     }
 }

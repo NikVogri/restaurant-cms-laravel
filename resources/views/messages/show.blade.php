@@ -16,7 +16,7 @@
             </span>
             <hr>
             <p class="m-0 py-3">{{ $message->body }}</p>
-            @if(!$message->pivot->read)
+            @if(!$message->read)
             <form action="{{ route('messages.update', $message->id) }}" method="post">
                 @csrf
                 @method('PUT')

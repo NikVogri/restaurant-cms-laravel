@@ -18,9 +18,15 @@ class CreateMessagesTable extends Migration
             $table->string('title');
             $table->text('body');
             $table->unsignedBigInteger('author_id');
+            $table->unsignedBigInteger('user_id');
+            $table->boolean('read')->default(false);
             $table->timestamps();
 
             $table->foreign('author_id')
+                ->references('id')
+                ->on('users');
+
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
         });

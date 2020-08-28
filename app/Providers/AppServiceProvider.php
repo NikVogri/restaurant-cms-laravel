@@ -36,5 +36,9 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function ($view) {
             $view->with('alertCount', Alert::count());
         });
+
+        // View::composer('*', function ($view) {
+        //     $view->with('messageCount', auth()->user()->unreadMessages()->count());
+        // });
     }
 }
