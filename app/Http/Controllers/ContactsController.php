@@ -68,6 +68,7 @@ class ContactsController extends Controller
     public function update(Contact $contact)
     {
         $contact->markAsRead();
+        $contact->alert->complete();
         return back()->with('message', 'Marked as read');
     }
 
