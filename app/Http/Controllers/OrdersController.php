@@ -73,12 +73,16 @@ class OrdersController extends Controller
         // 1) Get all cart items
         $cart = auth()->user()->cart;
 
-        if ($cart->totalPrice() < 1) {
-            return back();
-        }
-
         // 2) Create order
-        $order = auth()->user()->orders()->create(['payment_id' => auth()->user()->payment_type_id]);
+        $order = auth()->user()
+            ->orders()
+            ->create(
+                [
+                    'payment_id' => auth()->user()->payment_type_id,
+                    'total_price' => $cart->coupon ? $cart->applyCoupon() : $cart->total_price,
+                    'coupon_id' => $cart->coupon ? $cart->coupon->id : null
+                ]
+            );
 
         // 3) Create order items and attach them to order
         foreach ($cart->items as $item) {
@@ -86,9 +90,9 @@ class OrdersController extends Controller
         }
 
 
-
         // 4) Clear cart
         $cart->items()->delete();
+        $cart->delete();
 
         return redirect('/')->with('message', 'Your order has been sent');
     }
@@ -104,7 +108,6 @@ class OrdersController extends Controller
 
         return view('orders.show', [
             'order' => $order,
-            'price' => $order->totalPrice()
         ]);
     }
 

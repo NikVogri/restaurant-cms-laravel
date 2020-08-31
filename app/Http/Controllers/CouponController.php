@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Coupon;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Requests\CouponStoreRequest;
 
 class CouponController extends Controller
 {
@@ -19,25 +20,20 @@ class CouponController extends Controller
         return view('coupons.create');
     }
 
-    public function store()
+    public function store(CouponStoreRequest $request)
     {
+        Coupon::create($this->constructCouponAttributes($request));
 
-        $attributes =  request()->validate([
-            'name' => ['required', 'string'],
-            'coupon' => ['required', 'string'],
-            'valid_for' => ['required'],
-            'type' => ['required', 'string'],
-            'value' => ['required'],
-        ]);
-
-        $attributes['valid_until'] = $this->getDate($attributes['valid_for']);
-
-        Coupon::create(collect($attributes)->except('valid_for')->toArray());
-
-        return back()->with('Coupon added successfully.');
+        return redirect(route('coupons.index'))->with('message', 'Coupon Added Successfully');
     }
 
-    public function getDate($time)
+    protected function constructCouponAttributes($request)
+    {
+        $request['valid_until'] = $this->getDate($request['valid_for']);
+        return collect($request)->except('valid_for')->toArray();
+    }
+
+    protected function getDate($time)
     {
         return $time == 'forever' ? Carbon::now()->addCenturies(1) :  Carbon::now()->addDays($time);
     }

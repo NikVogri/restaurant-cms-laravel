@@ -22,7 +22,8 @@ class CreateOrdersTable extends Migration
         Schema::table('orders', function ($table) {
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('payment_id');
-
+            $table->float('total_price');
+            $table->string('coupon_id')->nullable();
             $table->foreign('customer_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('payment_id')->references('id')->on('payment_types')->onDelete('cascade');
         });

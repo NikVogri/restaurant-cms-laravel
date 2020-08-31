@@ -18,7 +18,8 @@ class CreateCartsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
-
+            $table->float('total_price')->default(0);
+            $table->string('coupon_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

@@ -24,12 +24,21 @@
                     </thead>
                     <tbody>
                         @foreach ($coupons as $coupon)
+                        @if($coupon->isValid())
                         <tr>
                             <td>{{ $coupon->name }}</td>
                             <td>{{ $coupon->coupon }}</td>
                             <td>{{ $coupon->value }}{{ $coupon->type == 'percentage' ? '%' : '€' }}</td>
                             <td>{{ \Carbon\Carbon::parse($coupon->valid_until)->format('d M Y') }}</td>
                         </tr>
+                        @else
+                        <tr>
+                            <td><del>{{ $coupon->name }}</del></td>
+                            <td><del>{{ $coupon->coupon }}</del></td>
+                            <td><del>{{ $coupon->value }}{{ $coupon->type == 'percentage' ? '%' : '€' }}</del></td>
+                            <td><del>{{ \Carbon\Carbon::parse($coupon->valid_until)->format('d M Y') }}</del></td>
+                        </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>

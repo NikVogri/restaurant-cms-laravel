@@ -32,7 +32,10 @@
                     </tbody>
                 </table>
 
-                <h4 class="m-0 mb-2">Total price: {{ $price }} €</h4>
+                <h4 class="m-0 mb-2">Total price: {{ $order->total_price }} €</h4>
+                @if($order->coupon)
+                <h5>Coupon Applied: {{ $order->coupon->coupon }}</h5>
+                @endif
                 <hr>
 
             </div>

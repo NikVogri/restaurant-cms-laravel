@@ -17,6 +17,7 @@ class CreateCartItemTable extends Migration
             $table->id();
             $table->unsignedBigInteger('cart_id');
             $table->unsignedBigInteger('item_id');
+            $table->integer('quantity')->default(1);
             $table->timestamps();
 
             $table->foreign('cart_id')
