@@ -25,7 +25,7 @@ class OrdersController extends Controller
     public function index()
     {
         return view('orders.index', [
-            'orders' => Order::orderBy('created_at', 'DESC')->with('customer')->with('paymentType')->get()
+            'orders' => Order::orderBy('created_at', 'DESC')->get()
         ]);
     }
 

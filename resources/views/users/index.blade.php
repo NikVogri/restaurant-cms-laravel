@@ -32,11 +32,11 @@
                             <td>{{ isset($user->paymentType) ?  $user->paymentType->payment->name  : 'Not Set' }}
                             </td>
                             <td>{{ $user->created_at }}</td>
-                            <td>{{ $user->orders->count() }}</td>
+                            <td>{{ $user->orders_count }}</td>
                             <td>
-                                @foreach ($user->roles as $role)
-                                <span>{{ ucwords($role->name) }}</span>
-                                @endforeach
+
+                                <span>{{ ucwords($user->roles[0]->name ) }}</span>
+
                                 <a href="{{ route('users.edit', $user->id) }}">Edit</a>
                             </td>
                         </tr>

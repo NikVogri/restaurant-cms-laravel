@@ -17,7 +17,6 @@ class CartController extends Controller
     {
         $cart = Cart::firstOrCreate(['user_id' => auth()->user()->id]);
 
-
         if (request('coupon')) {
             if (!$cart->addCoupon()) {
                 return view('cart.index', [
@@ -29,6 +28,8 @@ class CartController extends Controller
         if ($cart->coupon) {
             $cart->applyCoupon();
         }
+
+
 
         return view('cart.index', [
             'cart' => $cart,
@@ -59,7 +60,12 @@ class CartController extends Controller
 
         if (request()->has('count')) {
 
-            request('count') == 'increment' ? $item->increment('quantity') : $item->decrement('quantity');
+            if (request('count') == 'decrement' && $item->quantity == 1) {
+                $item->delete();
+            } else {
+                request('count') == 'increment' ? $item->increment('quantity') : $item->decrement('quantity');
+            }
+
             $item->cart->updatePrice();
         }
 
@@ -71,7 +77,6 @@ class CartController extends Controller
     public function destroy($itemId)
     {
         $cart  = auth()->user()->cart;
-
         $cart->items()->whereId($itemId)->delete();
         $cart->update(['total_price' => $cart->calculateTotalPrice()]);
 

@@ -7,8 +7,7 @@
         </div>
     </section>
     <div class="container my-5" style="min-height: 250px;">
-        @if($cart->items()->count() > 0)
-        <div class="table-responsive">
+        @if(count($cart->items) > 0) <div class="table-responsive">
             @include('cart.table')
             <p class="font-weight-bold">Total Price: {{ $cart->total_price }} €</p>
             <div class="d-flex justify-content-between">

@@ -19,7 +19,7 @@ class CategoriesController extends Controller
     public function index()
     {
         return view('categories.index', [
-            'categories' => Category::orderBy('created_at')->get()
+            'categories' => Category::withCount('items')->orderBy('created_at')->get()
         ]);
     }
 

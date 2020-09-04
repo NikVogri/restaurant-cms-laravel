@@ -36,6 +36,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+
+    protected $with = ['roles'];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -68,10 +71,5 @@ class User extends Authenticatable
     public function address()
     {
         return $this->hasOne(Address::class);
-    }
-
-    public function setTotalOrdersAttribute()
-    {
-        $this->attributes['total_orders'] = $this->orders()->count();
     }
 }

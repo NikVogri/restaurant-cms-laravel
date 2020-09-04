@@ -29,7 +29,7 @@
                         <tr>
                             <td>{{ $category->id }}</td>
                             <td>{{ $category->name }}</td>
-                            <td>{{ $category->hasItems() }}</td>
+                            <td>{{ $category->items_count }}</td>
                             {{-- <td>{{ $category->created_at->diffForHumans() }}</td> --}}
                             <td><a class="btn btn-primary btn-sm"
                                     href="{{ route('categories.edit', $category->id) }}">Edit</a>

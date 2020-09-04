@@ -11,6 +11,7 @@ class Cart extends Model
 {
     protected $guarded = [];
 
+    protected $with = ['items'];
 
     public function items()
     {
@@ -26,7 +27,7 @@ class Cart extends Model
     {
         $totalPrice = 0;
 
-        foreach ($this->items as $item) {
+        foreach ($this->fresh()->items as $item) {
             $totalPrice += $item->item->price * $item->quantity;
         }
 
