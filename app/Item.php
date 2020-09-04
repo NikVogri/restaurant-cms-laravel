@@ -10,7 +10,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
+
     //
+
+    protected $with = ['category'];
 
     protected $fillable = ['name', 'image', 'price', 'description', 'category_id'];
 
@@ -23,6 +26,7 @@ class Item extends Model
     {
         return 'storage/' . $this->image;
     }
+
 
     public function order_item()
     {

@@ -27,7 +27,7 @@ class Cart extends Model
         $totalPrice = 0;
 
         foreach ($this->items as $item) {
-            $totalPrice += $item->item->price;
+            $totalPrice += $item->item->price * $item->quantity;
         }
 
         return $totalPrice;
@@ -56,5 +56,9 @@ class Cart extends Model
     protected function calculatePriceWithCoupon($coupon)
     {
         return $coupon->type === 'percentage' ? $this->total_price *  (1 - ($coupon->value / 100)) :  $this->total_price - $coupon->value;
+    }
+    public function updatePrice()
+    {
+        $this->update(['total_price' => $this->calculateTotalPrice()]);
     }
 }

@@ -54,9 +54,22 @@ class CartController extends Controller
         return back()->with('message', 'Item added to cart');
     }
 
+    public function update(CartItem $item)
+    {
+
+        if (request()->has('count')) {
+
+            request('count') == 'increment' ? $item->increment('quantity') : $item->decrement('quantity');
+            $item->cart->updatePrice();
+        }
+
+
+
+        return back();
+    }
+
     public function destroy($itemId)
     {
-        // dd(auth()->user()->cart->items);
         $cart  = auth()->user()->cart;
 
         $cart->items()->whereId($itemId)->delete();
@@ -64,5 +77,14 @@ class CartController extends Controller
 
 
         return back()->with('message', 'Item removed from cart');
+    }
+
+    public function removeCoupon()
+    {
+        $cart = auth()->user()->cart;
+
+        $cart->update(['coupon_id' => null]);
+
+        return back();
     }
 }

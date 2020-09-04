@@ -8,6 +8,7 @@ use App\Address;
 use App\Message;
 use App\PaymentType;
 use App\Traits\Messaging;
+use Laravel\Cashier\Billable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -15,7 +16,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles, Messaging;
+    use Notifiable, HasRoles, Messaging, Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -67,5 +68,10 @@ class User extends Authenticatable
     public function address()
     {
         return $this->hasOne(Address::class);
+    }
+
+    public function setTotalOrdersAttribute()
+    {
+        $this->attributes['total_orders'] = $this->orders()->count();
     }
 }

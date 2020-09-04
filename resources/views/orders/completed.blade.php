@@ -31,7 +31,7 @@
                             <td>{{ $order->id }}</td>
                             <td>{{ $order->completed === 0 ? 'No' : 'Yes' }}</td>
                             <td>{{ $order->customer->name }}</td>
-                            <td>{{ $order->totalPrice() }}€</td>
+                            <td>{{ $order->total_price }}€</td>
                             <td>{{ $order->created_at->diffForHumans() }}</td>
                             <td><a href="{{ route('orders.show', $order->id) }}">View</a></td>
                             @if($order->completed === 0)

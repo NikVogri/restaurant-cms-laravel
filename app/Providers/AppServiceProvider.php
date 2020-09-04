@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Alert;
 use App\Order;
 use App\Contact;
+use Laravel\Cashier\Cashier;
 use App\Observers\OrderObserver;
 use Illuminate\Support\Composer;
 use App\Observers\ContactObserver;
@@ -20,7 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 
     /**
@@ -33,9 +33,6 @@ class AppServiceProvider extends ServiceProvider
         Order::observe(OrderObserver::class);
         Contact::observe(ContactObserver::class);
 
-        View::composer('*', function ($view) {
-            $view->with('alertCount', Alert::count());
-        });
 
         // View::composer('*', function ($view) {
         //     $view->with('messageCount', auth()->user()->unreadMessages()->count());

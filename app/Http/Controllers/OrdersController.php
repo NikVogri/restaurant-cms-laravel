@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Order;
 use App\Cart;
+use App\Order;
 
+use App\Orders;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
@@ -24,7 +25,7 @@ class OrdersController extends Controller
     public function index()
     {
         return view('orders.index', [
-            'orders' => Order::orderBy('created_at', 'DESC')->get()
+            'orders' => Order::orderBy('created_at', 'DESC')->with('customer')->with('paymentType')->get()
         ]);
     }
 
@@ -68,33 +69,10 @@ class OrdersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Orders $orders)
     {
-        // 1) Get all cart items
-        $cart = auth()->user()->cart;
-
-        // 2) Create order
-        $order = auth()->user()
-            ->orders()
-            ->create(
-                [
-                    'payment_id' => auth()->user()->payment_type_id,
-                    'total_price' => $cart->coupon ? $cart->applyCoupon() : $cart->total_price,
-                    'coupon_id' => $cart->coupon ? $cart->coupon->id : null
-                ]
-            );
-
-        // 3) Create order items and attach them to order
-        foreach ($cart->items as $item) {
-            $order->orderItems()->create(['item_id' => $item->item_id, 'quantity' => 1]);
-        }
-
-
-        // 4) Clear cart
-        $cart->items()->delete();
-        $cart->delete();
-
-        return redirect('/')->with('message', 'Your order has been sent');
+        $orders->create(1)->clearCart();
+        return view('orders.successful-order');
     }
 
     /**
@@ -105,7 +83,6 @@ class OrdersController extends Controller
      */
     public function show(Order $order)
     {
-
         return view('orders.show', [
             'order' => $order,
         ]);

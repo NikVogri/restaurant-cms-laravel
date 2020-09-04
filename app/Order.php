@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+
     //
+    protected $with = ['orderItems'];
     protected $fillable = ['customer_id', 'price', 'completed', 'payment_id', 'total_price', 'coupon_id'];
 
     public function customer()

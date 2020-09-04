@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('css/jquery.timepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('css/icomoon.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    @yield('head')
 </head>
 
 <body data-spy="scroll" data-target="#site-navbar" data-offset="200">

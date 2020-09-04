@@ -22,8 +22,9 @@ class UsersController extends Controller
      */
     public function index()
     {
+        dd(User::withCount('orders')->orderBy('created_at')->get());
         return view('users.index', [
-            'users' => User::orderBy('created_at')->get()
+            'users' => User::withCount('orders')->orderBy('created_at')->get()
         ]);
     }
 

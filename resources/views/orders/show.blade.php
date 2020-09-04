@@ -17,17 +17,25 @@
                     <thead>
                         <tr>
                             <th>Item Name</th>
-                            <th>Item Price</th>
                             <th>Quantity</th>
+                            <th>Item Price</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($order->orderItems as $orderItems)
+                        @foreach ($order->orderItems as $orderItem)
+                        @if(!is_null($orderItem->item_id))
                         <tr>
-                            <td>{{ $orderItems->item->name }}</td>
-                            <td>{{ $orderItems->item->price }}€</td>
-                            <td>{{ $orderItems->quantity }}</td>
+                            <td>{{ $orderItem->item->name }}</td>
+                            <td>{{ $orderItem->quantity }}</td>
+                            <td>{{ $orderItem->item->price * $orderItem->quantity }}€</td>
                         </tr>
+                        @else
+                        <tr>
+                            <td>Item deleted</td>
+                            <td>0</td>
+                            <td>0€</td>
+                        </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>
@@ -41,6 +49,7 @@
             </div>
 
             <h5 class="my-2">Delivery details</h5>
+            <p>{{ $order->customer->name }}</p>
             <p>{{ $order->customer->address->street_name}} {{ $order->customer->address->street_num}}</p>
             <p>{{ $order->customer->address->city}}</p>
             <p>{{ $order->customer->address->post_code}}</p>

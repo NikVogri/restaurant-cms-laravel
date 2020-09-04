@@ -13,7 +13,8 @@
                 <li class="nav-item"><a href="/#section-contact" class="nav-link">Contact</a></li>
                 @auth
                 <li class="nav-item {{ Request::path() == '/cart' ? 'active' : '' }}"><a
-                        href="{{ route('cart.index') }}" class=" nav-link">View Cart</a></li>
+                        href="{{ route('cart.index') }}" class=" nav-link">View Cart</a>
+                </li>
                 <li class="nav-item">
                     <form action="{{ route('logout') }}" method="POST" class="logout">
                         @csrf

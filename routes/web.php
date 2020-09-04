@@ -73,11 +73,21 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/cms/payments/{payment}/destroy', 'PaymentsController@destroy')->name('payments.destroy');
 
 
+    ////////
     // Front end
+
+    // Checkout
+    Route::get('/cart/checkout', 'CheckoutController@index')->name('checkout.index');
+
+    Route::get('/payment/credit-card', 'CreditCardController@index')->name('payment.index');
+    Route::post('/payment/credit-card', 'CreditCardController@store')->name('payment.store');
+
+    // Cart
     Route::get('/cart', 'CartController@index')->name('cart.index');
     Route::post('/cart/{item}/store', 'CartController@store')->name('cart.store');
     Route::delete('/cart/{item}/destroy', 'CartController@destroy')->name('cart.destroy');
     Route::put('/cart/{item}/update', 'CartController@update')->name('cart.update');
+    Route::get('/cart/coupon/remove', 'CartController@removeCoupon')->name('cart.remove-coupon');
 
     // Messages
     Route::get('/cms/messages', 'MessagesController@index')->name('messages.index');
