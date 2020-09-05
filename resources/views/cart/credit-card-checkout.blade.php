@@ -201,11 +201,12 @@
         </div>
     </div>
 
+
     <script>
         // Create a Stripe client.
         var stripe =
             Stripe(
-                'pk_test_51HNM5zA6Rzg8JCBAJI6oFEGTKSVQtd9MjAcZC9xZQsEBNSK3eeFdIEQux54W60cs9VHcLmFFmRQksm2uKAT8wAUN00iXFaMzb8'
+                "{!! config('stripe.stripe.stripeKey') !!}"
             );
 
         // Create an instance of Elements.
