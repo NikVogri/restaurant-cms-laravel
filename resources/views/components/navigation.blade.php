@@ -12,7 +12,7 @@
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user-circle fa-fw"></i>
-                {{-- <span class="badge badge-danger">{{ $messageCount ? $messageCount : '' }}</span> --}}
+                <span class="badge badge-danger">{{ auth()->user()->messages->count() }}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="{{ route('users.profile') }}">Profile Settings</a>
@@ -24,8 +24,8 @@
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="{{ route('messages.index') }}">
                 <i class="fas fa-envelope"></i>
-                <span class="badge badge-danger">{{ App\Alert::count() == 0 ? '' : App\Alert::count() }}</span>
-
+                <?php $alertCount = App\Alert::count(); ?>
+                <span class="badge badge-danger">{{ $alertCount > 0 ? $alertCount : '' }}</span>
             </a>
         </li>
 

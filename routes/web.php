@@ -89,6 +89,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/cart/{item}/update', 'CartController@update')->name('cart.update');
     Route::get('/cart/coupon/remove', 'CartController@removeCoupon')->name('cart.remove-coupon');
 
+
+
+    Route::get('/cart/order-success', 'CartController@success')->name('cart.success');
+
     // Messages
     Route::get('/cms/messages', 'MessagesController@index')->name('messages.index');
     Route::get('/cms/messages/create', 'MessagesController@create')->name('messages.create');

@@ -14,11 +14,12 @@ class CreditCardController extends Controller
 
     public function index()
     {
-        return view('cart.credit-card-checkout');
+        return auth()->user()->cart->items()->count() ? view('cart.credit-card-checkout') : redirect('/');
     }
 
     public function store(Orders $orders, CreditCardPaymentRequest $request)
     {
+
         try {
             $this->sendPayment($request);
             $orders->create(2)->clearCart();
@@ -26,17 +27,13 @@ class CreditCardController extends Controller
             return view('cart.credit-card-checkout')->with('card_decline', $e->getMessage());
         }
 
-        return view('orders.successful-order');
+        return redirect(route('cart.success'));
     }
 
     protected function sendPayment($request)
     {
         return Stripe::charges()->create([
-            'metadata' => [
-                'contents' => json_encode(auth()->user()->cart)
-            ],
             'source' => $request->stripeToken,
-            'name' => $request->card_holder,
             'receipt_email' => auth()->user()->email,
             'currency' => 'EUR',
             'amount'   => auth()->user()->cart->coupon ? auth()->user()->cart->applyCoupon() : auth()->user()->cart->total_price,

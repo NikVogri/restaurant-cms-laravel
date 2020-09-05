@@ -17,9 +17,9 @@ class DashboardController extends Controller
     public function index()
     {
         return view('dashboard.index', [
-            'orderCount' => Order::get()->count(),
-            'categoryCount' => Category::get()->count(),
-            'itemCount' => Item::get()->count()
+            'orderCount' => Order::count(),
+            'categoryCount' => Category::count(),
+            'itemCount' => Item::count()
         ]);
     }
 }

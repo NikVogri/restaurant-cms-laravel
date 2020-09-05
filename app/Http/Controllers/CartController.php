@@ -13,6 +13,7 @@ class CartController extends Controller
     {
         $this->middleware(['role:admin|staff|guest']);
     }
+
     public function index()
     {
         $cart = Cart::firstOrCreate(['user_id' => auth()->user()->id]);
@@ -28,7 +29,6 @@ class CartController extends Controller
         if ($cart->coupon) {
             $cart->applyCoupon();
         }
-
 
 
         return view('cart.index', [
@@ -91,5 +91,10 @@ class CartController extends Controller
         $cart->update(['coupon_id' => null]);
 
         return back();
+    }
+
+    public function success()
+    {
+        return view('orders.successful-order');
     }
 }

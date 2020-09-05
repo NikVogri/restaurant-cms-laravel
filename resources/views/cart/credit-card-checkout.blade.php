@@ -171,7 +171,7 @@
                                 Card Holder
                             </label>
                             <div class="form-group">
-                                <input type="text" name="card-holder" class="form-control">
+                                <input type="text" name="card_holder" class="form-control">
 
                                 @error('card-holder')
                                 <p class="text-danger">Please enter the card holder name.</p>

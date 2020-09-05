@@ -32,10 +32,5 @@ class AppServiceProvider extends ServiceProvider
     {
         Order::observe(OrderObserver::class);
         Contact::observe(ContactObserver::class);
-
-
-        // View::composer('*', function ($view) {
-        //     $view->with('messageCount', auth()->user()->unreadMessages()->count());
-        // });
     }
 }

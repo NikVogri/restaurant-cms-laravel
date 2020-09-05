@@ -70,7 +70,7 @@ class MessagesController extends Controller
         $message = current_user()->messages()->find($messageId);
         return view(
             'messages.show',
-            ['message' => $message]
+            compact('message')
         );
     }
 

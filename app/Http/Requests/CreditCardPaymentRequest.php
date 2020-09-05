@@ -25,7 +25,7 @@ class CreditCardPaymentRequest extends FormRequest
     {
         return [
             'stripeToken' => ['required'],
-            'card-holder' => ['required']
+            'card_holder' => ['required']
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Cart;
+use App\Alert;
 use App\Order;
 use App\Address;
 use App\Message;
@@ -37,7 +38,7 @@ class User extends Authenticatable
     ];
 
 
-    protected $with = ['roles'];
+    protected $with = ['address'];
 
     /**
      * The attributes that should be cast to native types.

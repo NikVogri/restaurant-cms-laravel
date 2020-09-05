@@ -72,7 +72,7 @@ class OrdersController extends Controller
     public function store(Orders $orders)
     {
         $orders->create(1)->clearCart();
-        return view('orders.successful-order');
+        return redirect(route('cart.success'));
     }
 
     /**

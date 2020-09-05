@@ -13,8 +13,6 @@ class Item extends Model
 
     //
 
-    protected $with = ['category'];
-
     protected $fillable = ['name', 'image', 'price', 'description', 'category_id'];
 
     public function category()
