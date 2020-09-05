@@ -117,6 +117,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/cms/coupons', 'CouponController@index')->name('coupons.index');
     Route::get('/cms/coupons/create', 'CouponController@create')->name('coupons.create');
     Route::post('/cms/coupons', 'CouponController@store')->name('coupons.store');
+
+    // Reports
+    Route::get('/cms/reports', 'ReportController@index')->name('reports.index');
 });
 
 
