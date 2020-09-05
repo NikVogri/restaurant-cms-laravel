@@ -16,7 +16,7 @@ class AlertsController extends Controller
     public function index()
     {
         return view('alerts.index', [
-            'alerts' => Alert::orderBy('created_at', 'DESC')->get()
+            'alerts' => Alert::orderBy('created_at', 'DESC')->paginate(50)
         ]);
     }
 

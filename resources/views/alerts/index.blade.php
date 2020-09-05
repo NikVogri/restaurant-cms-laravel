@@ -7,4 +7,7 @@
         </li>
     </ol>
     @include('alerts._list')
+    <div class="mt-2">
+        {{ $alerts->links() }}
+    </div>
 </x-app>

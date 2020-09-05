@@ -25,7 +25,7 @@ class OrdersController extends Controller
     public function index()
     {
         return view('orders.index', [
-            'orders' => Order::orderBy('created_at', 'DESC')->get()
+            'orders' => Order::orderBy('created_at', 'DESC')->paginate(50)
         ]);
     }
 
@@ -37,7 +37,7 @@ class OrdersController extends Controller
     public function new()
     {
         return view('orders.new', [
-            'orders' => Order::orderBy('created_at', 'DESC')->where('completed', false)->get()
+            'orders' => Order::orderBy('created_at', 'DESC')->where('completed', false)->paginate(50)
         ]);
     }
 
@@ -49,7 +49,7 @@ class OrdersController extends Controller
     public function completed()
     {
         return view('orders.completed', [
-            'orders' => Order::orderBy('created_at', 'DESC')->where('completed', true)->get()
+            'orders' => Order::orderBy('created_at', 'DESC')->where('completed', true)->paginate(50)
         ]);
     }
 
