@@ -32,7 +32,7 @@
 
                 <div class="card mb-1">
                     <div class="card-body">
-                        <small>Coupons Used In This Period:</small> <strong>{{ $coupon_count }}</strong>
+                        <small>Coupons Used In This Period:</small> <strong>{{ $coupons_count }}</strong>
                     </div>
                 </div>
 
@@ -45,26 +45,15 @@
                 <canvas id="myChart"></canvas>
                 <script>
                     var ctx = document.getElementById('myChart').getContext('2d');
-                    var data = @json($data);
-
-                    var labels = Object.keys(data)
-                    var itemData = [];
-
-                    for (keys in data) {
-                        itemData.push(data[keys].length);
-                    }
-
-
-                    console.log(labels.sort());
-                    console.log(itemData);
+                    var data = @json($chart_data);
 
                     var myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: labels,
+                            labels: Object.keys(data),
                             datasets: [{
                                 label: 'Orders Placed',
-                                data: itemData,
+                                data: Object.values(data),
                                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                                 borderWidth: 1
                             }]
@@ -73,8 +62,8 @@
                             scales: {
                                 yAxes: [{
                                     ticks: {
-                                        beginAtZero: true
-                                    }
+                                        beginAtZero: true,
+                                    },
                                 }]
                             }
                         }
