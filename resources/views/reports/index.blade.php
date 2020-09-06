@@ -47,10 +47,32 @@
                     var ctx = document.getElementById('myChart').getContext('2d');
                     var data = @json($chart_data);
 
+                    let monthNames = [];
+
+                    // check if data provided is in months
+                    if (Object.keys(data)[0].length == 2) {
+                        var month = new Array();
+                        month[0] = "January";
+                        month[1] = "February";
+                        month[2] = "March";
+                        month[3] = "April";
+                        month[4] = "May";
+                        month[5] = "June";
+                        month[6] = "July";
+                        month[7] = "August";
+                        month[8] = "September";
+                        month[9] = "October";
+                        month[10] = "November";
+                        month[11] = "December";
+                        for (key in data) {
+                            monthNames.push(month[key.split('')[1] - 1]);
+                        }
+                    }
+
                     var myChart = new Chart(ctx, {
                         type: 'bar',
                         data: {
-                            labels: Object.keys(data),
+                            labels: monthNames.length > 0 ? monthNames : Object.keys(data),
                             datasets: [{
                                 label: 'Orders Placed',
                                 data: Object.values(data),

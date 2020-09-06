@@ -73,7 +73,7 @@ class Reports
       $itemsCount += $order->orderItems->count();
     }
 
-    $this->items_count = 0;
+    $this->items_count = $itemsCount;
   }
 
 

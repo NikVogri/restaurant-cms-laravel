@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Order;
 use App\Reports;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
