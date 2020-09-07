@@ -67,7 +67,12 @@ class MessagesController extends Controller
      */
     public function show($messageId)
     {
-        $message = current_user()->messages()->find($messageId);
+        $message = auth()->user()->messages()->find($messageId);
+
+        if (!$message->read) {
+            $message->markAsRead();
+        }
+
         return view(
             'messages.show',
             compact('message')
@@ -94,7 +99,7 @@ class MessagesController extends Controller
      */
     public function update(Message $message)
     {
-        $message->update(['read' => true]);
+        $message->markAsRead();
         return redirect(route('messages.index'));
     }
 

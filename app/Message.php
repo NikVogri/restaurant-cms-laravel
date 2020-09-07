@@ -20,4 +20,9 @@ class Message extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function markAsRead()
+    {
+        return $this->update(['read' => true]);
+    }
 }

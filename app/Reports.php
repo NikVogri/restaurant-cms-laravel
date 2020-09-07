@@ -49,8 +49,11 @@ class Reports
     if (request('range') == 'year') {
       return 'm';
     }
-  }
 
+    if (request('range') == 'custom') {
+      return 'd M, Y';
+    }
+  }
 
 
   protected function orders_count()
@@ -107,6 +110,10 @@ class Reports
     return static::getOrdersBetween([Carbon::now()->startOfYear(), Carbon::now()]);
   }
 
+  public static function custom()
+  {
+    return static::getOrdersBetween([Carbon::parse(request('start_date')), Carbon::parse(request('end_date'))]);
+  }
 
   private static function getOrdersBetween($arguments)
   {

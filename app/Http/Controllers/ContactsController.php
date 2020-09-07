@@ -44,6 +44,11 @@ class ContactsController extends Controller
      */
     public function show(Contact $contact)
     {
+
+        if (!$contact->read) {
+            $contact->markAsRead();
+            $contact->alert->complete();
+        }
         return view('contacts.show', ['contact' => $contact]);
     }
 

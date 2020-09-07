@@ -59,6 +59,11 @@ class User extends Authenticatable
         return $this->hasMany(Message::class);
     }
 
+    public function unreadMessages()
+    {
+        return $this->messages()->where('read', false);
+    }
+
     public function cart()
     {
         return $this->hasOne(Cart::class);

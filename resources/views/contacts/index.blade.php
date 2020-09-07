@@ -14,7 +14,7 @@
 
             <span>{{ $contact->name }} </span>
             <a class="ml-5"
-                href="{{ route('contacts.show', $contact->id ) }}">{{ strlen($contact->body) > 99 ? substr($contact->body, 0, 100).'...' : $contact->body  }}</a>
+                href="{{ route('contacts.show', $contact->id ) }}">{{ strlen($contact->body) > 99 ? substr($contact->body, 0, 100).'...' : $contact->body  }}{{ $contact->read ? ' [read]' : '' }}</a>
             <span class="float-right mr-3">{{ $contact->created_at->diffForHumans() }}</span>
         </li>
 

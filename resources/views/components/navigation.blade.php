@@ -12,7 +12,9 @@
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-user-circle fa-fw"></i>
-                <span class="badge badge-danger">{{ auth()->user()->messages->count() }}</span>
+                @if(auth()->user()->unreadMessages()->count())
+                <span class="badge badge-danger">{{auth()->user()->unreadMessages()->count()  }}</span>
+                @endif
             </a>
             <div class="dropdown-menu dropdown-menu-left" aria-labelledby="userDropdown">
                 <a class="dropdown-item" href="{{ route('users.profile') }}">Profile Settings</a>

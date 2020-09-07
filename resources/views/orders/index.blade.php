@@ -28,7 +28,7 @@
                     </thead>
                     <tbody>
                         @foreach ($orders as $order)
-                        <tr>
+                        <tr style="{{$order->completed == 0 ? 'background-color: rgba(255, 129, 129, 0.15);"' : '' }}">
                             <td>{{ $order->id }}</td>
                             <td>{{ $order->completed === 0 ? 'No' : 'Yes' }}</td>
                             <td>{{ $order->customer->name }}</td>

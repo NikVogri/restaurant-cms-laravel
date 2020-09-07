@@ -15,13 +15,6 @@
             </span>
             <hr>
             <p class="m-0 py-3">{{ $contact->body }}</p>
-            @if(!$contact->read)
-            <form action="{{ route('contacts.update', $contact->id) }}" method="post">
-                @csrf
-                @method('PUT')
-                <button class="btn btn-warning btn-sm " type="submit">Mark as Read</button>
-            </form>
-            @endif
         </div>
     </div>
     </div>

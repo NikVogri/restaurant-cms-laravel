@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="user">Staff</label>
+                    <label for="user">Send to:</label>
                     <select name="users[]" id="user" class="form-control" multiple>
                         @foreach ($users as $user)
                         <option value="{{ $user->id }}">{{ $user->name }} - {{ ucfirst($user->getRoleNames()[0]) }}
